@@ -34,11 +34,13 @@ create table users(
 
 create table reputation(
     id int auto_increment,
-    id_users int not null,
+    id_target int not null,
+    id_commenter int not null,
     stance char(1) not null, -- posição, postura: em relação ao comentario
     message text not null,
     primary key (id),
-    foreign key (id_users) references users(id),
+    foreign key (id_target) references users(id),
+    foreign key (id_commenter) references users(id),
     constraint cs_stance check(stance in ('l','d')) -- 'l'ike / 'd'islike
 );
 
