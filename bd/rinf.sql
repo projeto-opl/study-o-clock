@@ -110,7 +110,8 @@ create table posts(
     primary key (id),
     foreign key (id_users) references users(id),
     foreign key (id_groups) references groups(id),
-    foreign key (id_type) references type_posts(id)
+    foreign key (id_type) references type_posts(id),
+    constraint cs_cc check(can_comments in (0,1))
 );
 
 create table comments(
@@ -151,4 +152,12 @@ create table rel_areas(
     id_area int not null,
     foreign key (id_posts) references posts(id),
     foreign key (id_area) references area_posts(id)
+);
+
+create table feeds(
+    id_me int not null,
+    id_following int not null,
+    primary key (id_me, id_following),
+    foreign key (id_me) references users(id) ,
+    foreign key (id_following) references users(id)
 );
