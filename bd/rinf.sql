@@ -19,7 +19,7 @@ create table schools(
 create table users(
     id int auto_increment,
     name varchar(50),
-    password varchar(40),
+    pass varchar(40),
     id_schools int,
     grade varchar(10),
     sex char(1),
