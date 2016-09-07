@@ -1,7 +1,25 @@
+html {
+    font-family: helvetica, arial, sans-serif;
+}
+
+body {
+    background-color: #f98e13;
+}
+
+.title {
+    display: block;
+    margin: 6px auto;
+    width: 100%;
+    text-align: center;
+}
+
 #regbox {
     margin: 0 auto;
     width:250px;
     padding: 20px;
+    background-color: #393d3f;
+    color: #f5f5f5;
+    border-radius: 2px;
 }
 input[type=text], input[type=password] {;
     border: none;
@@ -11,6 +29,8 @@ input[type=text], input[type=password] {;
     margin: 12px 0px;
     width: calc(100% - 40px);
     outline: none;
+    background-color: inherit;
+    color: #ffffff;
     -webkit-transition: border .2s ease-in;
     transition: border .2s ease-in;
 }
@@ -20,9 +40,11 @@ input[type=text]:focus, input[type=password]:focus {
 
 input[type=submit] {
     border: none;
-    border-bottom: 2px groove rgba(0,0,0,0.3);
+    border-bottom: 2px solid rgba(0,0,0,0.3);
     background-color: #3CBC8D;
+    color: #eeeeee;
     border-radius: 4px;
+    outline: none;
     padding: 10px 10px;
     width: 100%;
     -webkit-transition: background-color .1s ease-in;
@@ -31,4 +53,9 @@ input[type=submit] {
 
 input[type=submit]:hover {
     background-color: #20a070;
+}
+
+input[type=submit]:active {
+    border-bottom: none;
+    border-top: 2px solid rgba(0,0,0,0.3);
 }
