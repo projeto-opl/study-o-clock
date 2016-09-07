@@ -3,7 +3,31 @@ html {
 }
 
 body {
-    background-color: #f98e13;
+    /*background-color: #f98e13;*/
+    background-image: url('http://i.imgur.com/lqcUyZZ.jpg');
+    background-size: 100%;
+}
+
+#bg-color-filter {
+    position: absolute;
+    z-index: -1;
+    margin: -8px -8px;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(calc(16*16 + 9),calc(16*8 + 14),19,0.3);
+}
+
+#top-regbox {
+    margin: 0 auto;
+}
+
+#top-regbox span {
+    position: relative;
+    display: block;
+    padding: 20px 0 0 0;
+    text-align: center;
+    background-color: #fff;
+    width: 250px;
 }
 
 .title {
@@ -15,6 +39,7 @@ body {
 
 #regbox {
     margin: 0 auto;
+    margin-top: 3cm;
     width:250px;
     padding: 20px;
     background-color: #393d3f;
