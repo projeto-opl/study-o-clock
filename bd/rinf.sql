@@ -106,6 +106,8 @@ create table posts(
     id_groups int,
     content text,
     id_type int,
+    date_post date default(curdate()),
+    time_post time default(curtime()),
     can_comments tinyint(1) default 1, -- recebe {0, 1}. 1: true; 0: false;
     primary key (id),
     foreign key (id_users) references users(id),
