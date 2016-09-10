@@ -18,14 +18,15 @@ create table schools(
 
 create table users(
     id int auto_increment,
-    name varchar(50),
-    pass varchar(40),
+    user varchar(50) not null,
+    name varchar(50) not null,
+    pass varchar(40) not null,
     id_schools int,
     grade varchar(10),
-    sex char(1),
+    sex char(1) not null,
     id_cities int,
     cellphone varchar(20),
-    birthdate date,
+    birthdate date not null,
     primary key (id),
     foreign key (id_cities) references cities(id),
     foreign key (id_schools) references schools(id),
@@ -104,10 +105,10 @@ create table posts(
     id int auto_increment,
     id_users int not null,
     id_groups int,
-    content text,
+    content text not null,
     id_type int,
-    date_ date default(curdate()),
-    time_ time default(curtime()),
+    date_ date not null, 
+    time_ time not null,
     can_comments tinyint(1) default 1, -- recebe {0, 1}. 1: true; 0: false;
     primary key (id),
     foreign key (id_users) references users(id),
@@ -120,8 +121,8 @@ create table comments(
     id int auto_increment,
     id_users int,
     content text not null,
-    date_ date default(curdate()),
-    time_ time default(curtime()),
+    date_ date not null,
+    time_ time not null,
     primary key (id),
     foreign key (id_users) references users(id)
 );
@@ -131,8 +132,8 @@ create table replies(
     id_comments int not null,
     id_users int not null,
     content text not null,
-    date_ date default(curdate()),
-    time_ time default(curtime()),
+    date_ date not null,
+    time_ time not null,
     primary key (id),
     foreign key (id_users) references users(id),
     foreign key (id_comments) references comments(id)
@@ -171,9 +172,9 @@ create table feeds(
 create table notifications(
     id int auto_increment,
     content text not null,
-    date_ date default(curdate()),
-    time_ time default(curtime()),
-    seen tinyint default(0), -- 1: visto / 0:não visto
+    date_ date not null,
+    time_ time not null,
+    seen tinyint default 0, -- 1: visto / 0:não visto
     primary key (id),
     constraint cs_s0 check(seen in (0,1))
 );
