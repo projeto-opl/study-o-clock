@@ -106,8 +106,8 @@ create table posts(
     id_groups int,
     content text,
     id_type int,
-    date_post date default(curdate()),
-    time_post time default(curtime()),
+    date_ date default(curdate()),
+    time_ time default(curtime()),
     can_comments tinyint(1) default 1, -- recebe {0, 1}. 1: true; 0: false;
     primary key (id),
     foreign key (id_users) references users(id),
@@ -120,6 +120,8 @@ create table comments(
     id int auto_increment,
     id_users int,
     content text not null,
+    date_ date default(curdate()),
+    time_ time default(curtime()),
     primary key (id),
     foreign key (id_users) references users(id)
 );
@@ -129,6 +131,8 @@ create table replies(
     id_comments int not null,
     id_users int not null,
     content text not null,
+    date_ date default(curdate()),
+    time_ time default(curtime()),
     primary key (id),
     foreign key (id_users) references users(id),
     foreign key (id_comments) references comments(id)
@@ -162,4 +166,14 @@ create table feeds(
     primary key (id_me, id_following),
     foreign key (id_me) references users(id) ,
     foreign key (id_following) references users(id)
+);
+
+create table notifications(
+    id int auto_increment,
+    content text not null,
+    date_ date default(curdate()),
+    time_ time default(curtime()),
+    seen tinyint default(0), -- 1: visto / 0:não visto
+    primary key (id),
+    constraint cs_s0 check(seen in (0,1))
 );
