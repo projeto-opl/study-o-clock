@@ -6,6 +6,7 @@
 <head runat="server">
     <title></title>
     <link type='text/css' rel='stylesheet' href='style/reg.css'>
+    <link type='text/css' rel='stylesheet' href='style/main.css'>
 </head>
 <body>
     <form id="form1" runat="server">
