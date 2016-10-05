@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="userProfile.aspx.cs" Inherits="userProfile" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="userFriends.aspx.cs" Inherits="userFriends" %>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -10,8 +10,12 @@
 	<body>
 		<form runat='server'>
 			<article>
-				<asp:Image id='imgProfilePicture' runat='server' /><br />
-				<asp:Label id='lblName' runat='server'></asp:Label><br />
+				<div id='friends_facename' runat='server'>
+					<!--<div class='friends-entry'>-->
+						<!--<img class='friend-pic'/>-->
+						<!--<span class='friend-name'></span>-->
+					<!--</div>-->
+				</div>
 			</article>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>

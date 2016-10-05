@@ -11,8 +11,8 @@ public partial class userProfile : System.Web.UI.Page
 	DataRow user;
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		Session["email"] = "vhoyer@live.com";
-		Sqlds1.SelectCommand = "SELECT name FROM users WHERE email = '" + Session["email"] + "';";
+		Session["my]email"] = "vhoyer@live.com";
+		Sqlds1.SelectCommand = "SELECT name, img FROM users WHERE email = '" + Session["my]email"] + "';";
 		user = sqldsToTable().Rows[0];
 
 		Load_infos();
@@ -20,17 +20,8 @@ public partial class userProfile : System.Web.UI.Page
 
 	public void Load_infos()
 	{
-		lblName.Text = user["name"].ToString();
-		Load_friends();
-	}
-
-	public void Load_friends()
-	{
-		Sqlds1.SelectCommand = "select if(f.id_target = '" + Session["email"] + "', ur.name, ut.name) as 'amigos' " + 
-			"from friends f inner join users ur on ur.email = f.id_request inner join users ut on ut.email = f.id_target " + 
-			"where status = 'a' and '" + Session["email"] + "' in (f.id_target, f.id_request);";
-		DataTable friends = sqldsToTable();
-		gdFriends.DataSourceID = "Sqlds1";
+		lblName.Text = user["my]name"].ToString();
+		imgProfilePicture.ImageUrl = "~/images/" + user["my]img"].ToString();
 	}
 
 	private DataTable sqldsToTable()
