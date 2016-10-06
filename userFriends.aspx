@@ -5,15 +5,15 @@
 	<head runat='server'>
 		<title></title>
 		<link type='text/css' rel='stylesheet' href='style/main.css' />
-		<link type='text/css' rel='stylesheet' href='style/userProfile.css' />
+		<link type='text/css' rel='stylesheet' href='style/userFriends.css' />
 	</head>
 	<body>
 		<form runat='server'>
 			<article>
 				<div id='friends_facename' runat='server'>
-					<!--<div class='friends-entry'>-->
-						<!--<img class='friend-pic'/>-->
-						<!--<span class='friend-name'></span>-->
+					<!--<div class='friends_entry'>-->
+						<!--<img class='friend_pic'/>-->
+						<!--<span class='friend_name'></span>-->
 					<!--</div>-->
 				</div>
 			</article>
