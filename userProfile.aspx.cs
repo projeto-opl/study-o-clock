@@ -13,9 +13,11 @@ public partial class userProfile : System.Web.UI.Page
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		Session["myemail"] = "vhoyer@live.com";
-		profileId = (string)Session["myemail"];
-		
+		//testa pra ver se ta logado, se não tiver, volta pro login
+		if(Session["myemail"] == null)
+			Response.Redirect("~/loginTest.aspx");
+
+		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
 		
@@ -30,6 +32,7 @@ public partial class userProfile : System.Web.UI.Page
 		imgProfilePicture.ImageUrl = "~/images/" + user["img"].ToString();
 		//----------
 		updateFeedBtn();
+		updateFriendBtn();
 	}
 
 	private DataTable sqldsToTable(string selectQuery)
@@ -38,7 +41,6 @@ public partial class userProfile : System.Web.UI.Page
 		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
 		return view.ToTable();
 	}
-
 #region "Feed"
 	public void addFeed(object sender, EventArgs e)
 	{
@@ -73,4 +75,74 @@ public partial class userProfile : System.Web.UI.Page
 			btnFollow.Text = "Deixar de seguir?";
 	}
 #endregion
+	public void friendRequest(object sender, EventArgs e)
+	{
+		string res = testForFriendship("status");
+		if (res == null || res == "d")
+		{
+			Sqlds1.InsertCommand = "insert into friends(id_request, id_target, date_sent) values "+
+					"('"+Session["myemail"]+"', '"+profileId+"', now());";
+			Sqlds1.Insert();
+			//Send Notification
+		}
+		else if (res == "p")
+		{
+			if (testForFriendship("id_request") == (string)Session["myemail"])
+			{
+				//opens lightbox asking if want to send another notification
+			}
+			else
+			{
+				Sqlds1.UpdateCommand = "UPDATE friends SET `status` = 'a', date_anwser = NOW() WHERE '"+
+					Session["myemail"]+"' in (id_target, id_request) AND '"+
+					profileId+"' in (id_target, id_request) ORDER BY id DESC LIMIT 1;";
+				Sqlds1.Update();
+			}
+		}
+		else if (res == "a")
+		{
+			//opens lightbox asking if want to cancel friendship
+			Sqlds1.UpdateCommand = "UPDATE friends SET `status` = 'd' WHERE '"+
+				Session["myemail"]+"' in (id_target, id_request) AND '"+
+				profileId+"' in (id_target, id_request)";
+			Sqlds1.Update();
+		}
+		updateFriendBtn();
+	}
+
+	public string testForFriendship(string column)
+	{
+		DataTable dt = sqldsToTable("select `status` as 'status', id_request "+ 
+				"from friends "+
+				"where '"+Session["myemail"]+"' in (id_target, id_request) AND '"+profileId+"' in (id_target, id_request) ORDER BY id DESC;");
+
+		if(dt.Rows.Count == 0)
+			return null;
+		else
+			return dt.Rows[0][column].ToString();
+	}
+
+	public void updateFriendBtn()
+	{
+		string res = testForFriendship("status");
+		if(res == null || res == "d")
+		{
+			btnAddFriend.Text = "Adicionar amigo?";
+		}
+		else if (res == "p")
+		{
+			if (testForFriendship("id_request") == (string)Session["myemail"])
+			{
+				btnAddFriend.Text = "Solicitacao enviada";
+			}
+			else
+			{
+				btnAddFriend.Text = "Aceitar Solicitacao?";
+			}
+		}
+		else if (res == "a")
+		{
+			btnAddFriend.Text = "Desfazer amizade?";
+		}
+	}
 }
