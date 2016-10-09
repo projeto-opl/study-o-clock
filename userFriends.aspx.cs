@@ -11,7 +11,9 @@ public partial class userFriends : System.Web.UI.Page
 	DataRow user;
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		Session["myemail"] = "vhoyer@live.com";
+		//Session["myemail"] = "vhoyer@live.com";
+		if(Session["myemail"] == null)
+			Response.Redirect("~/loginTest.aspx");
 		Sqlds1.SelectCommand = "SELECT name, img FROM users WHERE email = '" + Session["myemail"] + "';";
 		user = sqldsToTable().Rows[0];
 
