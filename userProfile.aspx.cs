@@ -21,7 +21,7 @@ public partial class userProfile : System.Web.UI.Page
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
 		
-		user = sqldsToTable("SELECT name, img FROM users WHERE email = '" + profileId + "';").Rows[0];
+		user = sqldsToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
 		
 		Load_infos();
 	}
@@ -30,6 +30,9 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		lblName.Text = user["name"].ToString();
 		imgProfilePicture.ImageUrl = "~/images/" + user["img"].ToString();
+		lblBio.Text = "Este usuário não tem bio";
+		if (user["bio"].ToString() != "")
+			lblBio.Text = user["bio"].ToString();
 		//----------
 		updateFeedBtn();
 		updateFriendBtn();
@@ -75,6 +78,7 @@ public partial class userProfile : System.Web.UI.Page
 			btnFollow.Text = "Deixar de seguir?";
 	}
 #endregion
+#region "Friend Request"
 	public void friendRequest(object sender, EventArgs e)
 	{
 		string res = testForFriendship("status");
@@ -145,4 +149,7 @@ public partial class userProfile : System.Web.UI.Page
 			btnAddFriend.Text = "Desfazer amizade?";
 		}
 	}
+#endregion
+#region
+#endregion
 }
