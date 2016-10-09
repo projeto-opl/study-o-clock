@@ -8,25 +8,65 @@ using System.Web.UI.WebControls;
 
 public partial class userProfile : System.Web.UI.Page
 {
+	string profileId;
 	DataRow user;
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		Session["my]email"] = "vhoyer@live.com";
-		Sqlds1.SelectCommand = "SELECT name, img FROM users WHERE email = '" + Session["my]email"] + "';";
-		user = sqldsToTable().Rows[0];
-
+		Session["myemail"] = "vhoyer@live.com";
+		profileId = Session["myemail"];
+		
+		if (Request.QueryString["user"] != null)
+			profileId = Request.QueryString["user"];
+		
+		user = sqldsToTable("SELECT name, img FROM users WHERE email = '" + profileId + "';").Rows[0];
+		
 		Load_infos();
 	}
 
 	public void Load_infos()
 	{
-		lblName.Text = user["my]name"].ToString();
-		imgProfilePicture.ImageUrl = "~/images/" + user["my]img"].ToString();
+		lblName.Text = user["name"].ToString();
+		imgProfilePicture.ImageUrl = "~/images/" + user["img"].ToString();
+		//----------
+		updateFeedBtn();
 	}
 
-	private DataTable sqldsToTable()
+	private DataTable sqldsToTable(string selectQuery)
 	{
+		Sqlds1.SelectCommand = selectQuery;
 		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
 		return view.ToTable();
+	}
+
+	private void addFeed(object sender, EventArgs e) 
+	{
+		if(testForFeed())
+		{
+			Sqlds1.InsertCommand = "insert into feed(id_me, id_following) values ('"+Session["myemail"]+"', '"++"');"
+			Sqlds1.Insert();
+		}
+		else
+		{
+			//deletar a linha do feeds
+		}
+	}
+
+	private bool testForFeed()
+	{
+		DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feed WHERE id_me = "+Session["myemail"]+" AND id_following = "+profileId+";");
+		
+		if (dt.Rows.Count == 0)
+			return false;
+		else
+			return true;
+	}
+
+	private void updateFeedBtn()
+	{
+		if(testForFeed())
+			btnFollow.Text = "Seguir essa pessoa?";
+		else
+			btnFollow.Text = "Deixar de seguir?";
 	}
 }
