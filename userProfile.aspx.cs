@@ -41,6 +41,8 @@ public partial class userProfile : System.Web.UI.Page
 
 #region "Feed"
 	public void addFeed(object sender, EventArgs e)
+	{
+		if(!testForFeed())
 		{
 			Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
 			Sqlds1.Insert();
