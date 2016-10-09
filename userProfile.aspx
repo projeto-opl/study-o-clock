@@ -12,7 +12,7 @@
 			<article>
 				<asp:Image id='imgProfilePicture' runat='server' /><br />
 				<asp:Label id='lblName' runat='server'></asp:Label><br />
-				<asp:button id='btnFollow' runat='server' text='Seguir essa pessoa?' onclick='addFeed'/>
+				<asp:button id='btnFollow' runat='server' onclick='addFeed' />
 			</article>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>

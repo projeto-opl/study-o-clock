@@ -14,7 +14,7 @@ public partial class userProfile : System.Web.UI.Page
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		Session["myemail"] = "vhoyer@live.com";
-		profileId = Session["myemail"];
+		profileId = (string)Session["myemail"];
 		
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
@@ -39,22 +39,23 @@ public partial class userProfile : System.Web.UI.Page
 		return view.ToTable();
 	}
 
-	private void addFeed(object sender, EventArgs e) 
-	{
-		if(testForFeed())
+#region "Feed"
+	public void addFeed(object sender, EventArgs e)
 		{
-			Sqlds1.InsertCommand = "insert into feed(id_me, id_following) values ('"+Session["myemail"]+"', '"++"');"
+			Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
 			Sqlds1.Insert();
 		}
 		else
 		{
-			//deletar a linha do feeds
+			Sqlds1.DeleteCommand = "DELETE FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';";
+			Sqlds1.Delete();
 		}
+		updateFeedBtn();
 	}
 
-	private bool testForFeed()
+	public bool testForFeed()
 	{
-		DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feed WHERE id_me = "+Session["myemail"]+" AND id_following = "+profileId+";");
+		DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
 		
 		if (dt.Rows.Count == 0)
 			return false;
@@ -62,11 +63,12 @@ public partial class userProfile : System.Web.UI.Page
 			return true;
 	}
 
-	private void updateFeedBtn()
+	public void updateFeedBtn()
 	{
-		if(testForFeed())
+		if(!testForFeed())
 			btnFollow.Text = "Seguir essa pessoa?";
 		else
 			btnFollow.Text = "Deixar de seguir?";
 	}
+#endregion
 }
