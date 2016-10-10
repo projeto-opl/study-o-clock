@@ -22,7 +22,7 @@ public partial class loginTest : System.Web.UI.Page
 				if ((bool)dt.Rows[0]["validated"])
 				{
 					Session["myemail"] = txtEmail.Text;
-					Response.Redirect("userProfile.aspx");
+					Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
 				}
 		}
 	}
