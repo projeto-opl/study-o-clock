@@ -12,9 +12,9 @@
 			<article>
 				<asp:Image id='imgProfilePicture' runat='server'/><br />
 				<asp:Label id='lblName' runat='server'></asp:Label><br />
-				<asp:button id='btnFollow' runat='server' onclick='addFeed' /><br />
-				<asp:button id='btnAddFriend' runat='server' onclick='friendRequest' /><br />
 				<asp:label id='lblBio' runat='server'></asp:label><br />
+				<asp:button id='btnFollow' runat='server' onclick='addFeed' visible='false'/><br />
+				<asp:button id='btnAddFriend' runat='server' onclick='friendRequest' visible='false'/><br />
 			</article>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>

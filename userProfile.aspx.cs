@@ -8,6 +8,7 @@ using System.Web.UI.WebControls;
 
 public partial class userProfile : System.Web.UI.Page
 {
+	bool myProfile = false;
 	string profileId;
 	DataRow user;
 
@@ -20,22 +21,39 @@ public partial class userProfile : System.Web.UI.Page
 		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
+
+		if (profileId == (string)Session["myemail"])
+			myProfile = true;
 		
 		user = sqldsToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
-		
 		Load_infos();
 	}
 
 	public void Load_infos()
 	{
+		//Opções que vão aparecer para todos, independente se é o perfil é meu ou não
 		lblName.Text = user["name"].ToString();
 		imgProfilePicture.ImageUrl = "~/images/" + user["img"].ToString();
-		lblBio.Text = "Este usuário não tem bio";
+		lblBio.Text = "Este usuario nao tem bio";
 		if (user["bio"].ToString() != "")
 			lblBio.Text = user["bio"].ToString();
-		//----------
-		updateFeedBtn();
-		updateFriendBtn();
+
+		//controla o que aparece se o perfil for meu ou não
+		if (myProfile)
+		{
+			//aqui vai colocar
+			//- trocar imagem;
+			//- trocar bio;
+			//- trocar nome de display;
+		}
+		else
+		{
+			btnFollow.Visible = true;
+			updateFeedBtn();
+
+			btnAddFriend.Visible = true;
+			updateFriendBtn();
+		}
 	}
 
 	private DataTable sqldsToTable(string selectQuery)
@@ -44,6 +62,11 @@ public partial class userProfile : System.Web.UI.Page
 		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
 		return view.ToTable();
 	}
+#region "commonProfile"
+#endregion
+#region "myProfile"
+#endregion
+#region "othersProfile"
 #region "Feed"
 	public void addFeed(object sender, EventArgs e)
 	{
@@ -150,6 +173,5 @@ public partial class userProfile : System.Web.UI.Page
 		}
 	}
 #endregion
-#region
 #endregion
 }
