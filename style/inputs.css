@@ -2,8 +2,8 @@
 input[type=text], input[type=password] {
 	border: none;
 	border-bottom: 2px solid #000;
-	border-radius: 4px 4px 0 0;
-	padding: 12px 20px 4px;
+	/*border-radius: 4px 4px 0 0;*/
+	padding: 8px 20px;
 	margin: 12px 0px;
 	width: calc(100% - 40px);
 	outline: none;
