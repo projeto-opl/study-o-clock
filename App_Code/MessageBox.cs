@@ -8,19 +8,16 @@ public class MessageBox
 	{
 		ok = 1, cancel = 0
 	}
-	public enum btns
-	{
-		OkCancel = 1
-	}
 
     /// <summary>
     /// Displays an Message Box with the defined Text and title, current supporting only "okCancel" Buttons
     /// </summary>
     /// <param name="pag">just enter this in here</param>
+	/// <param name="id">identifier for uniqueness, nice word xD</param>
     /// <param name="_message">Message shown in message box body</param>
     /// <param name="_title">Title shown in message box head</param>
-    /// <param name="_buttons">Buttuns pattern for user interaction, to make methods for the message box, just add in the page.aspx.cs a method name "btn" + name of the button + "_Click", first letter of button name is capital</param>
-	public static void Show(Page pag, string _message, string _title, btns _buttons)
+    /// <param name="_buttons">array, each string is the text for a button, to make methods for the message box, just add in the page.aspx.cs a method name "btn" + id + name of the button + "_Click", first letter of button name is capital</param>
+	public static void Show(Page pag, string _id, string _message, string _title, string[] _buttons)
 	{
 		Control lb = pag.Form.FindControl("lightBox");
 		pag.Form.Controls.Remove(lb);
@@ -39,19 +36,14 @@ public class MessageBox
 		content.Controls.Add(new LiteralControl(_message));
 		controlBox.CssClass = "controlBox";
 
-		if ((int)_buttons == 1)
+		foreach(string btn in _buttons)
 		{
-			Button btnOk = new Button(),
-				   btnCancel = new Button();
-			btnOk.Attributes["type"] = "button";
-			btnOk.Text = "ok";
-			btnOk.Attributes["onClick"] = "btnOk_Click";
-			btnCancel.Attributes["type"] = "button";
-			btnCancel.Text = "cancel";
-			btnCancel.Attributes["onClick"] = "btnCancel_Click";
+			Button _btn = new Button();
+			_btn.ID = btn;
+			_btn.Text = "ok";
+			_btn.Attributes["onClick"] = "btn" + nameRefctoring(_id) + nameRefctoring(btn) + "_Click";
 
-			controlBox.Controls.Add(btnOk);
-			controlBox.Controls.Add(btnCancel);
+			controlBox.Controls.Add(_btn);
 		}
 
 		container.Controls.Add(title);
@@ -59,5 +51,10 @@ public class MessageBox
 		container.Controls.Add(controlBox);
 		lightBox.Controls.Add(container);
 		pag.Form.Controls.Add(lightBox);
+	}
+
+	private static string nameRefctoring(string str)
+	{
+		return str.Remove(1).ToUpper() + str.Substring(1).ToLower();
 	}
 }
