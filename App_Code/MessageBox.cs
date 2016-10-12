@@ -38,10 +38,11 @@ public class MessageBox
 
 		foreach(string btn in _buttons)
 		{
-			Button _btn = new Button();
-			_btn.ID = btn;
-			_btn.Text = "ok";
-			_btn.Attributes["onClick"] = "btn" + nameRefctoring(_id) + nameRefctoring(btn) + "_Click";
+			WebControl _btn = new WebControl(HtmlTextWriterTag.Input);
+			_btn.ID = "btn" + nameRefctoring(btn);
+			_btn.Attributes["type"] = "button";
+			_btn.Attributes["value"] = btn;
+			_btn.Attributes["onClick"] = "javascript:__doPostBack('btn" + nameRefctoring(_id) + nameRefctoring(btn) + "_Click','')";
 
 			controlBox.Controls.Add(_btn);
 		}
