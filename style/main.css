@@ -3,8 +3,6 @@ html {
 }
 
 body {
-	background-color: #f98e13;
-	background-image: url("../imagem/background2.jpg") !important;
 	background-repeat:no-repeat;
 	background-size: 100%;
 	top: 0;
@@ -13,6 +11,45 @@ body {
 	min-height: 100%;
 	min-width: 100%;
 }
+
+#lightBox {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, .7);
+}
+#lightBox #container {
+	display: block;
+	margin: auto auto;
+	margin-top: 20vh;
+	width: 30vw;
+	background-color: #fff;
+	border-radius: 3px;
+}
+#lightBox #title {
+	height: 2em;
+	width: 100%;
+	border-bottom: solid 1px #ccc;
+	box-sizing: border-box;
+	padding: .5em 1em;
+}
+#lightBox p {
+	padding: 0 1em;
+}
+#lightBox .controlBox {
+	min-height: 3em;
+	width: 100%;
+	padding: .35em 1em;
+	border-top: solid 1px #ccc;
+	box-sizing: border-box;
+}
+#lightBox .controlBox input {
+	float: right;
+	min-width: 60px;
+}
+
 /*inputs {{{*/
 /*txtboxes*/
 input[type=text], input[type=password] {
@@ -35,6 +72,7 @@ input[type=password]:focus {
 /*buttons*/
 input[type=submit],
 input[type=button] {
+	margin: auto 2px;
 	border: none;
 	border-bottom: 2px solid rgba(0,0,0,0.3);
 	background-color: #2faf7f;
@@ -42,7 +80,6 @@ input[type=button] {
 	border-radius: 4px;
 	outline: none;
 	padding: 10px 10px;
-	width: 100%;
 	-webkit-transition: background-color .1s ease-in;
 	transition: background-color .1s ease-in;
 	cursor:pointer;
