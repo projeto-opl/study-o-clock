@@ -7,13 +7,10 @@
 		<title></title>
 		<link type='text/css' rel='stylesheet' href='style/main.css'>
 		<link type='text/css' rel='stylesheet' href='style/inputs.css'>
-		<link type='text/css' rel='stylesheet' href='style/reg.css'>
+		<link type='text/css' rel='stylesheet' href='style/login.css'>
 	</head>
 	<body>
 		<form id="form1" runat="server">
-			<nav id="navegador">
-				<span></span>
-			</nav>
 			<div></div>
 			<div id='top-regbox'>
 				<span class="logo">Study o'Clock</span><br />
@@ -27,6 +24,7 @@
 					<asp:TextBox type="password" ID="txtPass" runat="server" placeholder="Senha"></asp:TextBox><br />
 				</span>
 				<div class='controlBox'>
+					<asp:Label id='lblError' class='errorMsg' runat='server'></asp:Label>
 					<asp:button id='btnLogin' runat='server' text='login' onclick='login' />
 				</div>
 				<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">

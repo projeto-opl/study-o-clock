@@ -1,0 +1,95 @@
+body {
+	background-color: #f98e13;
+	background-repeat:no-repeat;
+	background-size: contain;
+}
+
+.regPage { display: none; }
+#regp1 { display: inline; }
+
+.controlBox {
+	display: block;
+	clear:both;
+}
+
+.bg
+{
+	position: fixed;
+	z-index: -1000;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	top: 0;
+	left: 0;
+}
+
+#top-regbox {
+	margin: 10px auto;
+	position: relative;
+	display: block;
+	padding: 40px 0 0 0;
+	text-align: center;
+	width: 500px;
+}
+
+#top-regbox .logo {
+	top:32px;
+	font-family:Comic Sans MS;
+	font-size:30px;
+	color:white;
+}
+
+#top-regbox .subtitulo
+{
+	font-size:15px;
+	font-family:Tahoma;
+	font-size:20px;
+	color:white;
+}
+
+.title {
+	display: block;
+	margin: 6px auto;
+	width: 100%;
+	text-align: center;
+}
+
+.voltar
+{
+	width:100%;
+	text-align:right;
+	cursor:pointer;
+	text-decoration: none;
+}
+
+.voltar:hover
+{
+	text-decoration: underline;
+}
+
+#regbox {
+	margin: 0 auto;
+	margin-top: 1cm;
+	width:400px;
+	padding: 20px 20px 20px 20px;;
+	background-color: #393d3f;
+	color: #f5f5f5;
+	border-radius: 2px;
+	z-index: 2;
+}
+
+input[type=text], input[type=password] {
+	color: #ffffff;
+}
+
+#btnLogin {
+	display: block;
+	width: 100px;
+	margin: 0 auto;
+}
+
+.errorMsg {
+	text-align: center;
+	display: block;
+	margin: 4px 0;
+}

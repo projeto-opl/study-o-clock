@@ -17,13 +17,33 @@ public partial class loginTest : System.Web.UI.Page
 	{
 		if (txtEmail.Text != "" && txtPass.Text != "")
 		{
+			txtEmail.Style["border-color"] = "none";
+			txtPass.Style["border-color"] = "none";
+
 			DataTable dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"' AND pass = '"+txtPass.Text+"'");
 			if (dt.Rows.Count != 0)
+			{
 				if ((bool)dt.Rows[0]["validated"])
 				{
 					Session["myemail"] = txtEmail.Text;
 					Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
 				}
+				else
+				{
+					lblError.Text = "Conta nao ativada.";
+				}
+			}
+			else
+			{
+				lblError.Text = "Email ou senha incorretos.";
+				txtPass.Text = "";
+			}
+		}
+		else
+		{
+			txtEmail.Style["border-color"] = "red";
+			txtPass.Style["border-color"] = "red";
+			lblError.Text = "Os Campos em vermelho sao obrigatorios.";
 		}
 	}
 
