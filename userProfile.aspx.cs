@@ -21,6 +21,8 @@ public partial class userProfile : System.Web.UI.Page
 		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
+		else
+			profileId = (string)Session["myemail"];
 
 		if (profileId == (string)Session["myemail"])
 			myProfile = true;
@@ -42,6 +44,7 @@ public partial class userProfile : System.Web.UI.Page
 		if (myProfile)
 		{
 			//aqui vai colocar
+			//- editar basic_info
 			//- trocar imagem;
 			//- trocar bio;
 			//- trocar nome de display;
@@ -63,6 +66,16 @@ public partial class userProfile : System.Web.UI.Page
 		return view.ToTable();
 	}
 #region "commonProfile"
+	public void logout(object sender, EventArgs e)
+	{
+		Session.Abandon();
+		Response.Redirect("loginTest.aspx");
+	}
+
+	public void showFriends(object sender, EventArgs e)
+	{
+		Response.Redirect("userFriends.aspx?user=" + profileId);
+	}
 #endregion
 #region "myProfile"
 #endregion
@@ -110,6 +123,8 @@ public partial class userProfile : System.Web.UI.Page
 			Sqlds1.InsertCommand = "insert into friends(id_request, id_target, date_sent) values "+
 					"('"+Session["myemail"]+"', '"+profileId+"', now());";
 			Sqlds1.Insert();
+			if (!testForFeed())
+				addFeed(e,e);
 			//Send Notification
 		}
 		else if (res == "p")
