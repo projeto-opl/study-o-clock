@@ -6,14 +6,14 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class loginTest : System.Web.UI.Page
+public partial class login : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		
 	}
 
-	public void login(object sender, EventArgs e)
+	public void makeLogin(object sender, EventArgs e)
 	{
 		if (txtEmail.Text != "" && txtPass.Text != "")
 		{
@@ -23,10 +23,20 @@ public partial class loginTest : System.Web.UI.Page
 			DataTable dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"' AND pass = '"+txtPass.Text+"'");
 			if (dt.Rows.Count != 0)
 			{
+				//
+				// Login Aqui
+				//
 				if ((bool)dt.Rows[0]["validated"])
 				{
 					Session["myemail"] = txtEmail.Text;
-					Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
+					if (Request.QueryString["redirect"] != null)
+					{
+						Response.Redirect(Request.QueryString["redirect"]);
+					}
+					else
+					{
+						Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
+					}
 				}
 				else
 				{

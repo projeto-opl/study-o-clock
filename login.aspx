@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="loginTest.aspx.cs" Inherits="loginTest" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="login" %>
 
 <!DOCTYPE html>
 
@@ -25,7 +25,7 @@
 				</span>
 				<div class='controlBox'>
 					<asp:Label id='lblError' class='errorMsg' runat='server'></asp:Label>
-					<asp:button id='btnLogin' runat='server' text='login' onclick='login' />
+					<asp:button id='btnLogin' runat='server' text='login' onclick='makeLogin' />
 				</div>
 				<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 				</asp:SqlDataSource>
