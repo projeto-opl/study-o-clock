@@ -1,8 +1,6 @@
 using System;
 using System.Data;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -16,7 +14,8 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		//testa pra ver se ta logado, se não tiver, volta pro login
 		if(Session["myemail"] == null)
-			Response.Redirect("~/loginTest.aspx");
+			Response.Redirect("~/login.aspx");
+
 
 		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
