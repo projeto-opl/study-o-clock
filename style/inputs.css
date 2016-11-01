@@ -18,6 +18,7 @@ input[type=password]:focus {
 /*buttons*/
 input[type=submit],
 input[type=button] {
+	margin: 0 3px;
 	border: none;
 	border-bottom: 2px solid rgba(0,0,0,0.3);
 	background-color: #2faf7f;
@@ -25,7 +26,7 @@ input[type=button] {
 	border-radius: 4px;
 	outline: none;
 	padding: 10px 10px;
-	width: 100%;
+	min-width: 30px;
 	-webkit-transition: background-color .1s ease-in;
 	transition: background-color .1s ease-in;
 	cursor:pointer;

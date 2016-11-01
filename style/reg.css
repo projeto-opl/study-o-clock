@@ -82,9 +82,3 @@ body {
 input[type=text], input[type=password] {
 	color: #ffffff;
 }
-
-#btnLogin {
-	display: block;
-	width: 100px;
-	margin: 0 auto;
-}
