@@ -34,20 +34,26 @@
 
 					<asp:TextBox ID="txtConfPass" type='password' runat="server" placeholder='Confirmar senha'></asp:TextBox>
 					<asp:Label ID="lblConfPass" runat="server" ForeColor="Red"></asp:Label><br />
+					<div class='controlBox'>
+						<asp:Label ID="lblDif" runat="server" ForeColor="Red"></asp:Label>
+						<asp:Button ID="btnReg" runat="server" Text="Cadastrar" OnClick="btnReg_Click" />
+						<asp:Button ID="btnBack" runat="server" Text="Voltar" UseSubmitBehavior='false' />
+					</div>
 				</span>
-				<div class='controlBox'>
-					<asp:Label ID="lblDif" runat="server" ForeColor="Red"></asp:Label>
-					<asp:Button ID="btnReg" runat="server" Text="Cadastrar" OnClick="btnReg_Click" />
-					<asp:Button ID="btnBack" runat="server" Text="Voltar" />
-				</div>
+				<span id='regp2' class='regPage'>
+					<p>Insira o Código de confirmação abaixo:</p>
+					<asp:TextBox id='txtConfCode' runat='server' placeholder='Código de ativação'></asp:TextBox>
+					<asp:Button id='btnLogin' runat='server' Text='Confirmar' />
+				</span>
 				<asp:SqlDataSource ID="SqlRinf" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" InsertCommand="INSERT INTO users(name, pass, email) VALUES (@Name, @Pass, @Email)" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>" SelectCommand="SELECT * FROM users">
-					<InsertParameters>
-						<asp:ControlParameter ControlID="txtName" Name="Name" PropertyName="Text" />
-						<asp:ControlParameter ControlID="txtPass" Name="Pass" PropertyName="Text" />
-						<asp:ControlParameter ControlID="txtEmail" Name="Email" PropertyName="Text" />
-					</InsertParameters>
+				<InsertParameters>
+				<asp:ControlParameter ControlID="txtName" Name="Name" PropertyName="Text" />
+				<asp:ControlParameter ControlID="txtPass" Name="Pass" PropertyName="Text" />
+				<asp:ControlParameter ControlID="txtEmail" Name="Email" PropertyName="Text" />
+				</InsertParameters>
 				</asp:SqlDataSource>
 			</div>
+			<script src='script/cadUser.js' type='text/javascript'></script>
 		</form>
 	</body>
 </html>
