@@ -21,21 +21,13 @@
 				</span>
 				<span id='regp1' class='regPage'>
 					<asp:TextBox ID="txtName" runat="server" placeholder='Nome'></asp:TextBox>
-					<asp:Label ID="lblName" runat="server" ForeColor="Red"></asp:Label><br />
-
 					<asp:TextBox ID="txtEmail" runat="server" placeholder='Email'></asp:TextBox>
-					<asp:Label ID="lblMail" runat="server" ForeColor="Red"></asp:Label><br />
-
 					<asp:TextBox ID="txtConf" runat="server" placeholder='Confirmar email'></asp:TextBox>
-					<asp:Label ID="lblConfMail" runat="server" ForeColor="Red"></asp:Label><br />
-
 					<asp:TextBox ID="txtPass" type='password' runat="server" placeholder='Senha'></asp:TextBox>
-					<asp:Label ID="lblPass" runat="server" ForeColor="Red"></asp:Label><br />
-
 					<asp:TextBox ID="txtConfPass" type='password' runat="server" placeholder='Confirmar senha'></asp:TextBox>
-					<asp:Label ID="lblConfPass" runat="server" ForeColor="Red"></asp:Label><br />
+
 					<div class='controlBox'>
-						<asp:Label ID="lblDif" runat="server" ForeColor="Red"></asp:Label>
+						<asp:Label ID="lblDif" runat="server" ForeColor="Red"></asp:Label><br />
 						<asp:Button ID="btnReg" runat="server" Text="Cadastrar" OnClick="btnReg_Click" />
 						<asp:Button ID="btnBack" runat="server" Text="Voltar" UseSubmitBehavior='false' />
 					</div>

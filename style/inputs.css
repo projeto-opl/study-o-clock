@@ -1,3 +1,6 @@
+.emptyTextInput {
+	border-color: red !important;
+}
 /*txtboxes*/
 input[type=text], input[type=password] {
 	border: none;

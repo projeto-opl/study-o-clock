@@ -38,20 +38,20 @@ public partial class Cadastro : System.Web.UI.Page
 
 	protected void btnReg_Click(object sender, EventArgs e)
 	{
-		if(txtName.Text == String.Empty || txtEmail.Text == string.Empty ||
+		if(txtName.Text == string.Empty || txtEmail.Text == string.Empty ||
 				txtConf.Text == string.Empty || txtPass.Text == string.Empty ||
 				txtConfPass.Text == string.Empty)
 		{
 			if (txtName.Text == string.Empty)
-				lblName.Text = "*";
+				txtName.CssClass = "emptyTextInput";
 			if (txtEmail.Text == string.Empty)
-				lblMail.Text = "*";
+				txtEmail.CssClass = "emptyTextInput";
 			if (txtPass.Text == string.Empty)
-				lblPass.Text = "*";
+				txtPass.CssClass = "emptyTextInput";
 			if (txtConf.Text == string.Empty)
-				lblConfMail.Text = "*";
+				txtConf.CssClass = "emptyTextInput";
 			if (txtConfPass.Text == string.Empty)
-				lblConfPass.Text = "*";
+				txtConfPass.CssClass = "emptyTextInput";
 
 		}
 		else
@@ -98,6 +98,8 @@ public partial class Cadastro : System.Web.UI.Page
 				{
 					smtp.Send(conf);
 					SqlRinf.Insert();
+
+				    Page.ClientScript.RegisterStartupScript(this.GetType(),"text","nextRegPage(2)",true);
 				}
 				catch (Exception err)
 				{
@@ -105,8 +107,6 @@ public partial class Cadastro : System.Web.UI.Page
 					//lista de erros:
 					//- email já cadastrado
 				}
-
-				Page.ClientScript.RegisterStartupScript(this.GetType(),"text","nextRegPage(2)",true);
 			}
 		}
 	}
