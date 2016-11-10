@@ -34,13 +34,13 @@ public partial class userFriends : System.Web.UI.Page
 
 	public void Load_friends()
 	{
-		Sqlds1.SelectCommand = "select if(f.id_target = '" + profileId + "', ur.name, ut.name) as 'fr_name', "
+		string command = "select if(f.id_target = '" + profileId + "', ur.name, ut.name) as 'fr_name', "
 			+ "if(f.id_target = '" + profileId + "', ur.img, ut.img) as 'fr_img', "
 			+ "if(f.id_target = '" + profileId + "', ur.email, ut.email) as 'fr_email'" +
 			"from friends f inner join users ur on ur.email = f.id_request inner join users ut on ut.email = f.id_target " +
 			"where status = 'a' and '" + profileId + "' in (f.id_target, f.id_request);";
 		//sets the query to a Table, witch can be used to list all the friends
-		DataTable friends = sqldsToTable();
+		DataTable friends = sqldsToTable(command);
 		friendsQtd = friends.Rows.Count;
 
 		//locates the div with id friends_facename
