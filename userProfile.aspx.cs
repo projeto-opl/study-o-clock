@@ -68,7 +68,7 @@ public partial class userProfile : System.Web.UI.Page
 	public void logout(object sender, EventArgs e)
 	{
 		Session.Abandon();
-		Response.Redirect("loginTest.aspx");
+		Response.Redirect("login.aspx");
 	}
 
 	public void showFriends(object sender, EventArgs e)
