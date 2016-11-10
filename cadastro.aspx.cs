@@ -12,7 +12,9 @@ public partial class Cadastro : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
+		if (Request.QueryString["regp"] == null)
+			return;
+		Page.ClientScript.RegisterStartupScript(this.GetType(),"text","goRegPage(2,2)",true);
 	}
 
 	public static string SHA256Generator(string strInput)
@@ -59,9 +61,9 @@ public partial class Cadastro : System.Web.UI.Page
 			if(txtEmail.Text != txtConf.Text || txtPass.Text != txtConfPass.Text)
 			{
 				if(txtEmail.Text != txtConf.Text)
-					lblDif.Text = "* Os e-mails não coincidem";
+					lblDif.Text += "* Os e-mails não coincidem\n";
 				if(txtPass.Text != txtConfPass.Text)
-					lblDif.Text = "* As senhas não coincidem";
+					lblDif.Text += "* As senhas não coincidem\n";
 			}
 			else
 			{
@@ -99,7 +101,8 @@ public partial class Cadastro : System.Web.UI.Page
 					smtp.Send(conf);
 					SqlRinf.Insert();
 
-				    Page.ClientScript.RegisterStartupScript(this.GetType(),"text","nextRegPage(2)",true);
+					Session["myemail"] = txtEmail.Text;
+					Page.ClientScript.RegisterStartupScript(this.GetType(),"text","nextRegPage(2)",true);
 				}
 				catch (Exception err)
 				{
@@ -113,6 +116,19 @@ public partial class Cadastro : System.Web.UI.Page
 
 	public void btnLogin_Click(object sender, EventArgs e)
 	{
-		//call a Login function: to be created
+		if ((string)Session["myemail"] == null)
+		{
+			Response.Redirect("login.aspx?r=cadastro.aspx&qsal=1&qs0=regp&qv0=2");
+		}
+		string code = SHA256Generator((string)Session["myemail"]).Substring(0,5);
+		if (txtConfCode.Text == code)
+		{
+			Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
+		}
+	}
+
+	public void btnBackToLogin(object sender, EventArgs e)
+	{
+		Response.Redirect("login.aspx");
 	}
 }

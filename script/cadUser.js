@@ -19,3 +19,9 @@ function prevRegPage(totalPages) {
 		}
 	}
 }
+function goRegPage(totalPages,pagN) {
+	for(i = 1; i < totalPages; i++) {
+		changeDisplayById('regp'+i, 'none');
+	}
+	changeDisplayById('regp'+pagN, 'inline');
+}

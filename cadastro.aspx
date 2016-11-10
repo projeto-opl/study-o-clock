@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Cadastro.aspx.cs" Inherits="Cadastro" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="cadastro.aspx.cs" Inherits="Cadastro" %>
 
 <!DOCTYPE html>
 
@@ -29,13 +29,13 @@
 					<div class='controlBox'>
 						<asp:Label ID="lblDif" runat="server" ForeColor="Red"></asp:Label><br />
 						<asp:Button ID="btnReg" runat="server" Text="Cadastrar" OnClick="btnReg_Click" />
-						<asp:Button ID="btnBack" runat="server" Text="Voltar" UseSubmitBehavior='false' />
+						<asp:Button ID="btnBack" runat="server" Text="Voltar" UseSubmitBehavior='false' OnClick='btnBackToLogin' />
 					</div>
 				</span>
 				<span id='regp2' class='regPage'>
 					<p>Insira o Código de confirmação abaixo:</p>
 					<asp:TextBox id='txtConfCode' runat='server' placeholder='Código de ativação'></asp:TextBox>
-					<asp:Button id='btnLogin' runat='server' Text='Confirmar' />
+					<asp:Button id='btnLogin' runat='server' Text='Confirmar' Onclick='btnLogin_Click'/>
 				</span>
 				<asp:SqlDataSource ID="SqlRinf" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" InsertCommand="INSERT INTO users(name, pass, email) VALUES (@Name, @Pass, @Email)" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>" SelectCommand="SELECT * FROM users">
 				<InsertParameters>
