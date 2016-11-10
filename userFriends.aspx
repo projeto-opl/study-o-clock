@@ -3,16 +3,12 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head runat='server'>
-		<title>Fabio Lucas</title>
+		<title><%=CurUser["name"]%></title>
 		<meta charset="UTF-8">
-		<link type="text/css" rel="stylesheet" href="_css/estilo.css" />
-		<link href="_css/style.css" rel="stylesheet">
-		<link href="_css/friendsstyle.css" rel="stylesheet">
+		<link href='style/main.css' type='text/javascript' rel='stylesheet' />
+		<link href='style/inputs.css' type='text/javascript' rel='stylesheet' />
+		<link href='style/userFriends.css' type='text/javascript' rel='stylesheet' />
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-		<script src="_js/script.js"></script>
-		<!--<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>-->
 	</head>
 	<body>
 		<form runat='server'>
@@ -26,14 +22,10 @@
 			<div id="corpo">
 				<!--notificacao-->
 				<div class="abanotificacao">
-					<div class="notificacaopic">
-						<p class="usernoti">Brédi Piti</p>
-						<p class="conteudonoti">Compartilhou uma imagem</p>
-					</div>
-					<div class="notificacaostatus">
-						<p class="usernoti">Brédi Piti</p>
-						<p class="conteudonoti">Adicionou um novo status</p>
-					</div>
+					<!--<div class="notificacaopic">-->
+						<!--<p class="usernoti">Brédi Piti</p>-->
+						<!--<p class="conteudonoti">Compartilhou uma imagem</p>-->
+					<!--</div>-->
 				</div>
 				<!--parte comum-->
 				<div class="fotenha">
@@ -42,17 +34,17 @@
 				<div class="nseionome">
 					<input id="alterar" type='button' value='Alterar Info' />
 					<div class="gambiarra"> <!-- Esta div existe pq os botoes estavam bugando -->
-						<a href="friends.html"><input id="amigos" type='button' value='Amigos'></a>
+						<input id="amigos" type='button' value='Amigos' />
 					</div>
 				</div>
 				<div class="username">
 					<a href="index.html" style="color:#FFFFFF; text-decoration:none;">Fábio Lucas</a>
 				</div>
 				<!-- parte 'unica': amigos -->
+				<div class="tituloamigos">
+					<h5>Amigos de <%=CurUser["name"]%> (<%=FriendsQtd%>)</h5>
+				</div>
 				<div class="friends" id='friends_facename' runat='server'>
-					<div class="tituloamigos">
-						<h5>Amigos de <%=CurUser["name"]%> (<%=FriendsQtd%>)</h5>
-					</div>
 				</div>
 				<!--fim da div 'corpo'-->
 			</div>
