@@ -29,14 +29,18 @@ public partial class login : System.Web.UI.Page
 				if ((bool)dt.Rows[0]["validated"])
 				{
 					Session["myemail"] = txtEmail.Text;
-					if (Request.QueryString["redirect"] != null)
+					if (Request.QueryString["r"] != null)
 					{
-						Response.Redirect(Request.QueryString["redirect"]);
+						redirect(Request.QueryString["r"]);
 					}
 					else
 					{
 						Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
 					}
+				}
+				else if (Request.QueryString["r"] == "cadastro.aspx")
+				{
+					redirect(Request.QueryString["r"]);
 				}
 				else
 				{
@@ -45,7 +49,7 @@ public partial class login : System.Web.UI.Page
 			}
 			else
 			{
-				lblError.Text = "Email ou senha incorretos.";
+				lblError.Text = "Email ou senha incorretos ou usuário não cadastrado.";
 				txtPass.Text = "";
 			}
 		}
@@ -62,5 +66,19 @@ public partial class login : System.Web.UI.Page
 		Sqlds1.SelectCommand = selectQuery;
 		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
 		return view.ToTable();
+	}
+
+	private void redirect(string link)
+	{
+		if (Request.QueryString["qsal"] == null || Request.QueryString["qsal"] == "0")
+			Response.Redirect(link);
+
+		int arrLenght = Convert.ToInt32(Request.QueryString["qsal"]);
+		string qss = "?" + Request.QueryString["qs0"] + "=" + Request.QueryString["qv0"];
+		for (int i = 1; i > arrLenght; i++)
+		{
+			qss += "&" + Request.QueryString["qs" + i] + "=" + Request.QueryString["qv" + i];
+		}
+		Response.Redirect(link + qss);
 	}
 }

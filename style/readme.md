@@ -7,3 +7,4 @@
 | reg.css         | pagina de cadastro              | CadUser.aspx     | registryPageModel.html |
 | userProfile.css | pagina de perfil                | userProfile.aspx | userProfile.html       |
 | userFriends.css | pagina de amigos no perfil      | userFriends.aspx | -                      |
+| login.css       | pagina do login                 | login.aspx       | -                      |

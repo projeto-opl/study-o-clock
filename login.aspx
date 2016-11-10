@@ -1,4 +1,4 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="login" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="login.aspx.cs" Inherits="login" %>
 
 <!DOCTYPE html>
 
@@ -24,6 +24,7 @@
 					<asp:TextBox type="password" ID="txtPass" runat="server" placeholder="Senha"></asp:TextBox><br />
 				</span>
 				<div class='controlBox'>
+					<a href='cadastro.aspx'>Não tem conta? Cadastre-se</a >
 					<asp:Label id='lblError' class='errorMsg' runat='server'></asp:Label>
 					<asp:button id='btnLogin' runat='server' text='login' onclick='makeLogin' />
 				</div>

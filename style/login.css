@@ -12,6 +12,16 @@ body {
 	clear:both;
 }
 
+.controlBox > a {
+	margin: 20px auto 20px;
+	text-align: center;
+	display: block;
+}
+
+.controlBox > a:hover {
+	text-decoration: underline;
+}
+
 .bg
 {
 	position: fixed;
