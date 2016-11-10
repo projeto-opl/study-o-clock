@@ -49,7 +49,11 @@ public partial class login : System.Web.UI.Page
 			}
 			else
 			{
-				lblError.Text = "Email ou senha incorretos ou usuário não cadastrado.";
+				dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"';");
+				if (dt.Rows.Count == 0)
+					lblError.Text = "Email não cadastrado.";
+				else
+					lblError.Text = "Senha incorreta.";
 				txtPass.Text = "";
 			}
 		}
