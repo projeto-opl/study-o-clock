@@ -5,9 +5,9 @@
 	<head runat='server'>
 		<title><%=CurUser["name"]%></title>
 		<meta charset="UTF-8">
-		<link href='style/main.css' type='text/javascript' rel='stylesheet' />
-		<link href='style/inputs.css' type='text/javascript' rel='stylesheet' />
-		<link href='style/userFriends.css' type='text/javascript' rel='stylesheet' />
+		<link type='text/javascript' rel='stylesheet' href='style/main.css' />
+		<link type='text/javascript' rel='stylesheet' href='style/inputs.css' />
+		<link type='text/javascript' rel='stylesheet' href='style/userFriends.css' />
 		<script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
 	</head>
 	<body>

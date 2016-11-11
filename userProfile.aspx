@@ -4,8 +4,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head runat='server'>
 		<meta charset='utf-8'>
-		<title></title>
+		<title><%=CurUser["name"]%></title>
 		<link type='text/css' rel='stylesheet' href='style/main.css' />
+		<link type='text/css' rel='stylesheet' href='style/inputs.css' />
 		<link type='text/css' rel='stylesheet' href='style/userProfile.css' />
 	</head>
 	<body>

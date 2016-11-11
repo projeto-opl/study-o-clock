@@ -188,4 +188,7 @@ public partial class userProfile : System.Web.UI.Page
 	}
 #endregion
 #endregion
+#region "encapsulated"
+	public DataRow CurUser { get { return user; } }
+#endregion
 }
