@@ -31,24 +31,29 @@ public partial class login : System.Web.UI.Page
 					Session["myemail"] = txtEmail.Text;
 					if (Request.QueryString["r"] != null)
 					{
+						//se tiver redirect -> vai pra la
 						redirect(Request.QueryString["r"]);
 					}
 					else
 					{
-						Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
+						//endereço padrão -> depois login
+						Response.Redirect(FileName.Profile+"?user="+txtEmail.Text);
 					}
 				}
 				else if (Request.QueryString["r"] == "cadastro.aspx")
 				{
+					//faz o redirect funcionar mesmo se a conta não estiver validada
 					redirect(Request.QueryString["r"]);
 				}
 				else
 				{
+					//se não tiver ativada, não tier redirect mas existir
 					lblError.Text = "Conta nao ativada.";
 				}
 			}
 			else
 			{
+				//refaz a query pra ver se o email não esta cadastrado ou só digitaram a senha errada
 				dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"';");
 				if (dt.Rows.Count == 0)
 					lblError.Text = "Email não cadastrado.";
@@ -74,9 +79,12 @@ public partial class login : System.Web.UI.Page
 
 	private void redirect(string link)
 	{
+		//metodo do redirect
+		//se não tiverem QueryStrings para pensar, vai direto
 		if (Request.QueryString["qsal"] == null || Request.QueryString["qsal"] == "0")
 			Response.Redirect(link);
 
+		//se tiver QueryString, refaz o link do jeito certo e segue o link
 		int arrLenght = Convert.ToInt32(Request.QueryString["qsal"]);
 		string qss = "?" + Request.QueryString["qs0"] + "=" + Request.QueryString["qv0"];
 		for (int i = 1; i > arrLenght; i++)

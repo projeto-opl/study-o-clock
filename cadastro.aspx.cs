@@ -54,7 +54,6 @@ public partial class Cadastro : System.Web.UI.Page
 				txtConf.CssClass = "emptyTextInput";
 			if (txtConfPass.Text == string.Empty)
 				txtConfPass.CssClass = "emptyTextInput";
-
 		}
 		else
 		{
@@ -118,17 +117,17 @@ public partial class Cadastro : System.Web.UI.Page
 	{
 		if ((string)Session["myemail"] == null)
 		{
-			Response.Redirect("login.aspx?r=cadastro.aspx&qsal=1&qs0=regp&qv0=2");
+			Response.Redirect(FileName.Login+"?r=cadastro.aspx&qsal=1&qs0=regp&qv0=2");
 		}
 		string code = SHA256Generator((string)Session["myemail"]).Substring(0,5);
 		if (txtConfCode.Text == code)
 		{
-			Response.Redirect("userProfile.aspx?user="+txtEmail.Text);
+			Response.Redirect(FileName.Profile + "?user="+txtEmail.Text);
 		}
 	}
 
 	public void btnBackToLogin(object sender, EventArgs e)
 	{
-		Response.Redirect("login.aspx");
+		Response.Redirect(FileName.Login);
 	}
 }

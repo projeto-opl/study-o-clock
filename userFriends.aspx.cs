@@ -17,7 +17,7 @@ public partial class userFriends : System.Web.UI.Page
 	{
 		//testa pra ver se ta logado, se não tiver, volta pro login
 		if(Session["myemail"] == null)
-			Response.Redirect("~/login.aspx");
+			Response.Redirect(FileName.Login);
 
 		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
@@ -54,8 +54,8 @@ public partial class userFriends : System.Web.UI.Page
 					   name = new WebControl(HtmlTextWriterTag.H5);
 
 			entry.CssClass = "id_user";
-			pic.Attributes["src"] = "images\\" + friend["fr_img"].ToString();
-			a.Attributes["href"] = "/userProfile.aspx?user=" + friend["fr_email"];
+			pic.Attributes["src"] = FileName.ImgFolder + friend["fr_img"].ToString();
+			a.Attributes["href"] = FileName.Profile+"?user=" + friend["fr_email"];
 			name.Controls.Add(new LiteralControl(friend["fr_name"].ToString()));
 
 			entry.Controls.Add(pic);

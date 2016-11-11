@@ -14,7 +14,7 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		//testa pra ver se ta logado, se não tiver, volta pro login
 		if(Session["myemail"] == null)
-			Response.Redirect("~/login.aspx");
+			Response.Redirect(FileName.Login);
 
 
 		// testa se tem querystring user, se não tiver, não faz nada...
@@ -34,7 +34,7 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		//Opções que vão aparecer para todos, independente se é o perfil é meu ou não
 		lblName.Text = user["name"].ToString();
-		imgProfilePicture.ImageUrl = "~/images/" + user["img"].ToString();
+		imgProfilePicture.ImageUrl = FileName.ImgFolder + user["img"].ToString();
 		lblBio.Text = "Este usuario nao tem bio";
 		if (user["bio"].ToString() != "")
 			lblBio.Text = user["bio"].ToString();
@@ -68,12 +68,12 @@ public partial class userProfile : System.Web.UI.Page
 	public void logout(object sender, EventArgs e)
 	{
 		Session.Abandon();
-		Response.Redirect("login.aspx");
+		Response.Redirect(FileName.Login);
 	}
 
 	public void showFriends(object sender, EventArgs e)
 	{
-		Response.Redirect("userFriends.aspx?user=" + profileId);
+		Response.Redirect(FileName.FriendList+"?user=" + profileId);
 	}
 #endregion
 #region "myProfile"
