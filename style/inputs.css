@@ -1,14 +1,13 @@
 .emptyTextInput {
 	border-color: red !important;
 }
-/*txtboxes*/
+/*txtboxes {{{*/
 input[type=text], input[type=password] {
 	border: none;
 	border-bottom: 2px solid #000;
 	/*border-radius: 4px 4px 0 0;*/
 	padding: 8px 20px;
 	margin: 12px 0px;
-	width: calc(100% - 40px);
 	outline: none;
 	background-color: inherit;
 	-webkit-transition: border .2s ease-in;
@@ -18,7 +17,8 @@ input[type=text]:focus,
 input[type=password]:focus {
 	border-bottom: 2px solid #3cbc8d;
 }
-/*buttons*/
+/*}}}*/
+/*buttons {{{*/
 input[type=submit],
 input[type=button] {
 	margin: 0 3px;
@@ -45,3 +45,4 @@ input[type=button]:active {
 	border-bottom: none;
 	border-top: 2px solid rgba(0,0,0,0.3);
 }
+/*}}}*/

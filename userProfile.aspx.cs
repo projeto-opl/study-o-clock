@@ -67,6 +67,12 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		Response.Redirect(FileName.FriendList+"?user=" + profileId);
 	}
+
+	public void btnPesq_Click(object sender, EventArgs e)
+	{
+		if (txtSearchBox.Text != "")
+			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
+	}
 #endregion
 #region "myProfile"
 #endregion
