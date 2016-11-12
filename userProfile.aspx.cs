@@ -50,8 +50,8 @@ public partial class userProfile : System.Web.UI.Page
 		}
 		else
 		{
-			btnFollow.Visible = true;
-			updateFeedBtn();
+			//btnFollow.Visible = true;
+			//updateFeedBtn();
 
 			btnAddFriend.Visible = true;
 			updateFriendBtn();
@@ -79,40 +79,6 @@ public partial class userProfile : System.Web.UI.Page
 #region "myProfile"
 #endregion
 #region "othersProfile"
-#region "Feed"
-	public void addFeed(object sender, EventArgs e)
-	{
-		if(!testForFeed())
-		{
-			Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
-			Sqlds1.Insert();
-		}
-		else
-		{
-			Sqlds1.DeleteCommand = "DELETE FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';";
-			Sqlds1.Delete();
-		}
-		updateFeedBtn();
-	}
-
-	public bool testForFeed()
-	{
-		DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
-		
-		if (dt.Rows.Count == 0)
-			return false;
-		else
-			return true;
-	}
-
-	public void updateFeedBtn()
-	{
-		if(!testForFeed())
-			btnFollow.Text = "Seguir essa pessoa?";
-		else
-			btnFollow.Text = "Deixar de seguir?";
-	}
-#endregion
 #region "Friend Request"
 	public void friendRequest(object sender, EventArgs e)
 	{
@@ -122,8 +88,8 @@ public partial class userProfile : System.Web.UI.Page
 			Sqlds1.InsertCommand = "insert into friends(id_request, id_target, date_sent) values "+
 					"('"+Session["myemail"]+"', '"+profileId+"', now());";
 			Sqlds1.Insert();
-			if (!testForFeed())
-				addFeed(e,e);
+			//if (!testForFeed())
+				//addFeed(e,e);
 			//Send Notification
 		}
 		else if (res == "p")
@@ -192,3 +158,42 @@ public partial class userProfile : System.Web.UI.Page
 	public DataRow CurUser { get { return user; } }
 #endregion
 }
+#region "commended/feed"
+/*
+ *tem que adicionar o botão no .aspx pq o asp não sabe o que é comentario
+ */
+#region "Feed"
+	//public void addFeed(object sender, EventArgs e)
+	//{
+		//if(!testForFeed())
+		//{
+			//Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
+			//Sqlds1.Insert();
+		//}
+		//else
+		//{
+			//Sqlds1.DeleteCommand = "DELETE FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';";
+			//Sqlds1.Delete();
+		//}
+		//updateFeedBtn();
+	//}
+
+	//public bool testForFeed()
+	//{
+		//DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
+		
+		//if (dt.Rows.Count == 0)
+			//return false;
+		//else
+			//return true;
+	//}
+
+	//public void updateFeedBtn()
+	//{
+		//if(!testForFeed())
+			//btnFollow.Text = "Seguir essa pessoa?";
+		//else
+			//btnFollow.Text = "Deixar de seguir?";
+	//}
+#endregion
+#endregion
