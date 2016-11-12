@@ -10,7 +10,7 @@ public partial class login : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		
+
 	}
 
 	public void makeLogin(object sender, EventArgs e)
@@ -20,7 +20,7 @@ public partial class login : System.Web.UI.Page
 			txtEmail.Style["border-color"] = "none";
 			txtPass.Style["border-color"] = "none";
 
-			DataTable dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"' AND pass = '"+txtPass.Text+"'");
+			DataTable dt = Sqlds1.QueryToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"' AND pass = '"+txtPass.Text+"'");
 			if (dt.Rows.Count != 0)
 			{
 				//
@@ -54,7 +54,7 @@ public partial class login : System.Web.UI.Page
 			else
 			{
 				//refaz a query pra ver se o email não esta cadastrado ou só digitaram a senha errada
-				dt = sqldsToTable("SELECT validated FROM users WHERE email = '"+txtEmail.Text+"';");
+				dt = Sqlds1.QueryToTable("SELECT validated FROM users WHERE email = '" + txtEmail.Text + "';");
 				if (dt.Rows.Count == 0)
 					lblError.Text = "Email não cadastrado.";
 				else
@@ -68,13 +68,6 @@ public partial class login : System.Web.UI.Page
 			txtPass.Style["border-color"] = "red";
 			lblError.Text = "Os Campos em vermelho sao obrigatorios.";
 		}
-	}
-
-	private DataTable sqldsToTable(string selectQuery)
-	{
-		Sqlds1.SelectCommand = selectQuery;
-		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
-		return view.ToTable();
 	}
 
 	private void redirect(string link)

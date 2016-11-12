@@ -16,7 +16,6 @@ public partial class userProfile : System.Web.UI.Page
 		if(Session["myemail"] == null)
 			Response.Redirect(FileName.Login);
 
-
 		// testa se tem querystring user, se não tiver, não faz nada...
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
@@ -26,7 +25,7 @@ public partial class userProfile : System.Web.UI.Page
 		if (profileId == (string)Session["myemail"])
 			myProfile = true;
 		
-		user = sqldsToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+		user = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
 		Load_infos();
 	}
 
@@ -56,13 +55,6 @@ public partial class userProfile : System.Web.UI.Page
 			btnAddFriend.Visible = true;
 			updateFriendBtn();
 		}
-	}
-
-	private DataTable sqldsToTable(string selectQuery)
-	{
-		Sqlds1.SelectCommand = selectQuery;
-		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
-		return view.ToTable();
 	}
 #region "commonProfile"
 	public void logout(object sender, EventArgs e)
@@ -119,7 +111,7 @@ public partial class userProfile : System.Web.UI.Page
 
 	public string testForFriendship(string column)
 	{
-		DataTable dt = sqldsToTable("select `status` as 'status', id_request "+ 
+		DataTable dt = Sqlds1.QueryToTable("select `status` as 'status', id_request "+ 
 				"from friends "+
 				"where '"+Session["myemail"]+"' in (id_target, id_request) AND '"+profileId+"' in (id_target, id_request) ORDER BY id DESC;");
 
@@ -180,7 +172,7 @@ public partial class userProfile : System.Web.UI.Page
 
 	//public bool testForFeed()
 	//{
-		//DataTable dt = sqldsToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
+		//DataTable dt = Sqlds1.QueryToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
 		
 		//if (dt.Rows.Count == 0)
 			//return false;

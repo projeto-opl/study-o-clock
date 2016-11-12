@@ -29,7 +29,7 @@ public partial class userFriends : System.Web.UI.Page
 			myProfile = true;
 
 		Load_friends();
-		curUser = sqldsToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+		curUser = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
 	}
 
 	public void Load_friends()
@@ -40,7 +40,7 @@ public partial class userFriends : System.Web.UI.Page
 			"from friends f inner join users ur on ur.email = f.id_request inner join users ut on ut.email = f.id_target " +
 			"where status = 'a' and '" + profileId + "' in (f.id_target, f.id_request);";
 		//sets the query to a Table, witch can be used to list all the friends
-		DataTable friends = sqldsToTable(command);
+		DataTable friends = Sqlds1.QueryToTable(command);
 		friendsQtd = friends.Rows.Count;
 
 		//locates the div with id friends_facename
@@ -63,13 +63,6 @@ public partial class userFriends : System.Web.UI.Page
 			a.Controls.Add(entry);
 			div.Controls.Add(a);
 		}
-	}
-
-	private DataTable sqldsToTable(string selectQuery)
-	{
-		Sqlds1.SelectCommand = selectQuery;
-		DataView view = (DataView)Sqlds1.Select(new DataSourceSelectArguments());
-		return view.ToTable();
 	}
 
 	#region encapsulated
