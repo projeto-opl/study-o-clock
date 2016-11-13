@@ -72,3 +72,6 @@
 	border-radius: 2px;
 	z-index: 2;
 }
+input[type=text], input[type=password] {
+	width: calc(100% - 40px);
+}

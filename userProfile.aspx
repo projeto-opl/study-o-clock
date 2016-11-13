@@ -14,15 +14,15 @@
 			<article>
 				<asp:Button id='btnLogout' runat='server' text='logout' onclick='logout' usesubmitbehavior='false' /><br />
 
-				<asp:TextBox id='txtSearchUser' runat='server' placeholder='pesquisar'></asp:TextBox>
-				<asp:Button id='btnPesq' runat='server' visible='false' onclick='' /><br />
+				<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+				<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' /><br />
 
 				<asp:Image id='imgProfilePicture' runat='server'/><br />
 				<asp:Label id='lblName' runat='server'></asp:Label><br />
 				<asp:label id='lblBio' runat='server'></asp:label><br />
 
 				<asp:button id='btnShowFriends' runat='server' text='Amigos dessa pessoa' UseSubmitBehavior='false' onclick='showFriends' />
-				<asp:button id='btnAddFriend' runat='server' onclick='friendRequest' usesubmitbehavior='false' visible='false'/>
+				<asp:button id='btnAddFriend' runat='server' onclick='friendRequest' UseSubmitBehavior='false' visible='false'/>
 			</article>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>

@@ -103,3 +103,6 @@ input[type=text], input[type=password] {
 	display: block;
 	margin: 4px 0;
 }
+input[type=text], input[type=password] {
+	width: calc(100% - 40px);
+}
