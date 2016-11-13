@@ -7,12 +7,14 @@ public static class FileName
 		   friendList = "userFriends.aspx",
 		   profile = "userProfile.aspx",
 		   pesqPage = "pesq.aspx",
-		   imgFolder = "images/";
+		   config = "config.aspx",
+		   imgFolder = "images/userProfile/";
 
 	public static string Login { get { return login; } }
 	public static string Cadastro { get { return cadastro; } }
 	public static string FriendList { get { return friendList; } }
 	public static string Profile { get { return profile; } }
 	public static string PesqPage { get { return pesqPage; } }
+	public static string Config { get { return config; } }
 	public static string ImgFolder { get { return imgFolder; } }
 }

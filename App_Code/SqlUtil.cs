@@ -11,4 +11,10 @@ public static class SqlUtil
 		DataView view = (DataView)sqlds.Select(new DataSourceSelectArguments());
 		return view.ToTable();
 	}
+
+	public static int UpdateFromQuery(this SqlDataSource sqlds, string query)
+	{
+		sqlds.UpdateCommand = query;
+		return sqlds.Update();
+	}
 }

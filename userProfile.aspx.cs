@@ -59,8 +59,7 @@ public partial class userProfile : System.Web.UI.Page
 #region "commonProfile"
 	public void logout(object sender, EventArgs e)
 	{
-		Session.Abandon();
-		Response.Redirect(FileName.Login);
+		this.Logout();
 	}
 
 	public void showFriends(object sender, EventArgs e)
