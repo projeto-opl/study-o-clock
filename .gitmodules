@@ -1,0 +1,3 @@
+[submodule "rinf-bd"]
+	path = rinf-bd
+	url = http://github.com/projeto-opl/study-o-clock-bd
