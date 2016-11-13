@@ -10,7 +10,8 @@ public partial class login : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-
+		if (Session["myemail"] != null)
+			redirect(FileName.Profile+"?user="+(string)Session["myemail"]);
 	}
 
 	public void makeLogin(object sender, EventArgs e)
