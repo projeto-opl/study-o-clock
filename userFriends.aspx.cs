@@ -48,16 +48,19 @@ public partial class userFriends : System.Web.UI.Page
 		//creates an entry of each friend, entry with img and the name
 		foreach(DataRow friend in friends.Rows)
 		{
+			//create the objects that will be put in the page
 			WebControl entry = new WebControl(HtmlTextWriterTag.Div),
 					   pic = new WebControl(HtmlTextWriterTag.Img),
 					   a = new WebControl(HtmlTextWriterTag.A),
 					   name = new WebControl(HtmlTextWriterTag.H5);
 
+			//set the attributes to the objects
 			entry.CssClass = "id_user";
 			pic.Attributes["src"] = FileName.ImgFolder + friend["fr_img"].ToString();
 			a.Attributes["href"] = FileName.Profile+"?user=" + friend["fr_email"];
 			name.Controls.Add(new LiteralControl(friend["fr_name"].ToString()));
 
+			//adds each control to it's parent and so
 			entry.Controls.Add(pic);
 			entry.Controls.Add(name);
 			a.Controls.Add(entry);
