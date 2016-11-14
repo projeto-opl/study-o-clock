@@ -15,13 +15,38 @@ a {
 	color: inherit;
 }
 
+nav {
+	position:fixed;
+	background-color: white;
+	display:block;
+	top:0px;
+	left:0px;
+	width:100%;
+	height:100px;
+	z-index: 20;
+	box-shadow: 0px 7px 20px -5px rgba(0,0,0,0.75);
+}
+
+article {
+	width: 90%;
+	margin: 100px auto;
+	margin-top: 150px;
+}
+
+#pesquisa
+{
+	top:30px;
+	left:400px;
+	height:20px;
+}
+
 .profile_img_wrapper {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	overflow: hidden;
-	height: 100px;
-	width: 100px;
+	height: 140px;
+	width: 140px;
 }
 .profile_img_wrapper img {
 	flex-shrink: 0;

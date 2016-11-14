@@ -13,9 +13,11 @@
 	</head>
 	<body>
 		<form id="form1" runat="server">
-			<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
+			<nav>
+				<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
+			</nav>
 
-			<div id='config_container'>
+			<article id='config_container'>
 				<!--edit img-->
 				<div class='profile_img_wrapper wrapper_size'>
 					<img id='profile_img' runat='server' src='images/userProfile/profile-picture-placeholder.png' />
@@ -39,7 +41,7 @@
 					<asp:Button id='btnSave' runat='server' text='Salvar' onclick='btnSave_Click'/>
 					<input type='button' value='Cancelar' onclick='window.location="<%=FileName.Profile%>"' />
 				</div>
-			</div>
+			</article>
 			<script src='script/UpdadeImgOnUpload.js' type='text/javascript'></script>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>

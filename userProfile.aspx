@@ -11,14 +11,17 @@
 	</head>
 	<body>
 		<form runat='server'>
-			<article>
+			<nav>
 				<asp:Button id='btnLogout' runat='server' text='logout' onclick='logout' usesubmitbehavior='false' />
 				<input type='button' value='config' onclick='window.location="<%=FileName.Config%>"' />
 				<br />
 
-				<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+				<div id='pesquisa' class='navegador'>
+					<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+				</div>
 				<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' /><br />
-
+			</nav>
+			<article>
 				<div class='profile_img_wrapper'>
 					<asp:Image id='imgProfilePicture' runat='server'/><br />
 				</div>

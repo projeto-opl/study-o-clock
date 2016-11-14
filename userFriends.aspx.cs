@@ -75,6 +75,16 @@ public partial class userFriends : System.Web.UI.Page
 		}
 	}
 
+	public void logout(object sender, EventArgs e)
+	{
+		this.Logout();
+	}
+	public void btnPesq_Click(object sender, EventArgs e)
+	{
+		if (txtSearchBox.Text != "")
+			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
+	}
+
 	#region encapsulated
 	public DataRow CurUser {get { return curUser; } }
 	public int FriendsQtd { get { return friendsQtd; } }
