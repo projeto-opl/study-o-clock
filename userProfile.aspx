@@ -19,7 +19,9 @@
 				<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
 				<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' /><br />
 
-				<asp:Image id='imgProfilePicture' runat='server'/><br />
+				<div class='profile_img_wrapper'>
+					<asp:Image id='imgProfilePicture' runat='server'/><br />
+				</div>
 				<asp:Label id='lblName' runat='server'></asp:Label><br />
 				<asp:label id='lblBio' runat='server'></asp:label><br />
 

@@ -24,7 +24,8 @@
 
 				<div class='controlBox'>
 					<br />
-					<asp:Button id='btnSave' runat='server' text='Save' onclick='btnSave_Click'/>
+					<asp:Button id='btnSave' runat='server' text='Salvar' onclick='btnSave_Click'/>
+					<input type='button' value='Cancelar' onclick='window.location="<%=FileName.Profile%>"' />
 				</div>
 			</div>
 			<script src='script/UpdadeImgOnUpload.js' type='text/javascript'></script>

@@ -14,14 +14,24 @@ public partial class userProfile : System.Web.UI.Page
 	{
 		//testa pra ver se ta logado, se não tiver, volta pro login
 		if(Session["myemail"] == null)
-			Response.Redirect(FileName.Login);
+		{
+			//build link to go back to this page after login
+			string link;
+			if (Request.QueryString["user"] != null)
+				link = FileName.Login+"?r="+FileName.Profile+"&qsal=1&qs0=user&qv0="+ Request.QueryString["user"];
+			else
+				link = FileName.Login+"?r="+FileName.Profile;
 
-		// testa se tem querystring user, se não tiver, não faz nada...
+			Response.Redirect(link);
+		}
+
+		//se tiver Qs, seta o id da pagina para ele
 		if (Request.QueryString["user"] != null)
 			profileId = Request.QueryString["user"];
 		else
 			profileId = (string)Session["myemail"];
 
+		//se a pagina for a mesma da session, o perfil é seu
 		if (profileId == (string)Session["myemail"])
 			myProfile = true;
 		
@@ -39,15 +49,7 @@ public partial class userProfile : System.Web.UI.Page
 			lblBio.Text = user["bio"].ToString();
 
 		//controla o que aparece se o perfil for meu ou não
-		if (myProfile)
-		{
-			//aqui vai colocar
-			//- editar basic_info
-			//- trocar imagem;
-			//- trocar bio;
-			//- trocar nome de display;
-		}
-		else
+		if (!myProfile)
 		{
 			//btnFollow.Visible = true;
 			//updateFeedBtn();
