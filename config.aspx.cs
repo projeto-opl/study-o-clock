@@ -29,6 +29,8 @@ public partial class config : System.Web.UI.Page
 	{
 		//load img
 		profile_img.Attributes["src"] = FileName.ImgFolder + (string)curSettings["img"];
+		//txtName.Text = (string)curSettings["name"]; <- isso tava bugando tudo ... apesar de não fazer sentido... mas ok
+		//txtBio.Text = (string)curSettings["bio"];
 	}
 
 	public void btnSave_Click(object sender, EventArgs e)
@@ -36,7 +38,7 @@ public partial class config : System.Web.UI.Page
 		DataRow newSettings = curSettings.Table.NewRow();
 		newSettings.ItemArray = curSettings.ItemArray.Clone() as object[];
 
-		//check if the picture has changed
+		//check if the picture has changed {{{
 		if (picture_change.HasFile)
 		{
 			string filename = picture_change.FileName;
@@ -63,6 +65,27 @@ public partial class config : System.Web.UI.Page
 			picture_change.SaveAs(Server.MapPath(filename));
 			newSettings["img"] = Path.GetFileName(filename);
 		}
+		//}}}
+		//assign txtbox value to the newSettings {{{
+		//--Name
+		newSettings["name"] = txtName.Text;
+		//--password
+		bool test1 = (new TextBox[] { txtPass1, txtPass2}.All(x => x.Text != "")),
+			 test2 = txtPass1.Text == txtPass2.Text;
+		if (test1 && test2)
+		{
+			newSettings["pass"] = txtPass1.Text;
+		}
+		else if (!test2)
+		{
+			txtPass1.Style.Add("border-color", "red !important");
+			txtPass2.Style.Add("border-color", "red !important");
+			lblPassError.Text = "As senhas inseridas não coincidem.";
+			return;
+		}
+		//--bio
+		newSettings["bio"] = txtBio.Text;
+		//}}}
 
 		//compare to see if there is diferences
 		//if does: updates db

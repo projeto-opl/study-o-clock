@@ -29,7 +29,14 @@ public partial class userFriends : System.Web.UI.Page
 			myProfile = true;
 
 		Load_friends();
-		curUser = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+		try
+		{
+			curUser = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+		}
+		catch (IndexOutOfRangeException)
+		{
+			Response.Redirect("error/404");
+		}
 	}
 
 	public void Load_friends()
