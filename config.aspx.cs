@@ -68,7 +68,10 @@ public partial class config : System.Web.UI.Page
 		//}}}
 		//assign txtbox value to the newSettings {{{
 		//--Name
-		newSettings["name"] = txtName.Text;
+		if (txtName.Text != "")
+		{
+			newSettings["name"] = txtName.Text;
+		}
 		//--password
 		bool test1 = (new TextBox[] { txtPass1, txtPass2}.All(x => x.Text != "")),
 			 test2 = txtPass1.Text == txtPass2.Text;
@@ -84,7 +87,10 @@ public partial class config : System.Web.UI.Page
 			return;
 		}
 		//--bio
-		newSettings["bio"] = txtBio.Text;
+		if (txtBio.Text != "")
+		{
+			newSettings["bio"] = txtBio.Text;
+		}
 		//}}}
 
 		//compare to see if there is diferences
