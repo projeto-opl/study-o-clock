@@ -22,6 +22,13 @@ public partial class config : System.Web.UI.Page
 			"FROM users WHERE email = '"+profileId+"';";
 		curSettings = Sqlds1.QueryToTable(query).Rows[0];
 		//load info
+		Load_infos();
+	}
+
+	public void Load_infos()
+	{
+		//load img
+		profile_img.Attributes["src"] = FileName.ImgFolder + (string)curSettings["img"];
 	}
 
 	public void btnSave_Click(object sender, EventArgs e)
@@ -59,7 +66,7 @@ public partial class config : System.Web.UI.Page
 
 		//compare to see if there is diferences
 		//if does: updates db
-		if (!curSettings.Equals(newSettings))
+		if (!curSettings.ItemArray.SequenceEqual(newSettings.ItemArray))
 		{
 			string updateCommand = "UPDATE users SET" +
 				" img = '" + newSettings["img"] + "'," +
@@ -71,6 +78,7 @@ public partial class config : System.Web.UI.Page
 				"WHERE email = '" + profileId + "';";
 			Sqlds1.UpdateFromQuery(updateCommand);
 		}
+		Response.Redirect(FileName.Profile);
 	}
 
 	public void logout(object sender, EventArgs e)
