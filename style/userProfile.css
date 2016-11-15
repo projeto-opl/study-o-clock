@@ -1,8 +1,18 @@
 #posts_container {
-	margin: 0 auto;
+	margin: 0 auto 50px;
 }
 #txtPost_content {
 	width: 500px;
 }
 #showMore {
+	display: table;
+	width: 100%;
+	box-shadow: inset 0px 0px 5px black;
+	background-color: lightgray;
+	border-radius: 5px;
+	text-align: center;
+	padding: 1em;
+}
+#showMore:hover {
+	cursor: pointer;
 }
