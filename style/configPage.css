@@ -1,7 +1,39 @@
 .wrapper_size {
 	height: 200px;
 	width: 200px;
+	margin-bottom: 10px;
 }
 #picture_change {
 	display: none;
+}
+#config_container {
+	margin-top: -80px;
+}
+.controlBox {
+	display: flex;
+	flex-flow: row-reverse wrap;
+}
+#img-config {
+	float: left;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin-right: 10px;
+}
+#text-config {
+	padding-top: 10px;
+	margin: 0 10px;
+}
+#text-config input {
+	width: 57%;
+}
+#txtBio {
+	width: 99%;
+	border-radius: 5px;
+}
+.config_title + input {
+	margin-top: 0px;
+}
+#bio-config {
+	clear: both;
 }
