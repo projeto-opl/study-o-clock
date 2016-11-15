@@ -1,0 +1,14 @@
+div.result_entry {
+	top: 5px;
+	clear: both;
+}
+div.result_entry > a {
+	float: left;
+}
+div.res_text {
+	padding: 5px;
+	padding-left: 145px;
+}
+.res_title {
+	margin-top: 0px;
+}

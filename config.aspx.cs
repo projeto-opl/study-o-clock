@@ -18,7 +18,7 @@ public partial class config : System.Web.UI.Page
 		else
 			profileId = (string)Session["myemail"];
 
-		string query = "SELECT img, name, pass, sex, bio, birthdate "+
+		string query = "SELECT img, name, pass, bio "+
 			"FROM users WHERE email = '"+profileId+"';";
 		curSettings = Sqlds1.QueryToTable(query).Rows[0];
 		//load info
@@ -101,9 +101,7 @@ public partial class config : System.Web.UI.Page
 				" img = '" + newSettings["img"] + "'," +
 				" name = '" + newSettings["name"] + "'," +
 				" pass = '" + newSettings["pass"] + "'," +
-				" sex = '" + newSettings["sex"] + "'," +
-				" bio = '" + newSettings["bio"] + "'," +
-				" birthdate = '" + Convert.ToDateTime(newSettings["birthdate"]).ToString("yyyy-MM-dd") + "' " +
+				" bio = '" + newSettings["bio"] + "' " +
 				"WHERE email = '" + profileId + "';";
 			Sqlds1.UpdateFromQuery(updateCommand);
 		}
@@ -113,5 +111,10 @@ public partial class config : System.Web.UI.Page
 	public void logout(object sender, EventArgs e)
 	{
 		this.Logout();
+	}
+	public void btnPesq_Click(object sender, EventArgs e)
+	{
+		if (txtSearchBox.Text != "")
+			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
 	}
 }

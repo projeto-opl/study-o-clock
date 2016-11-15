@@ -59,8 +59,10 @@ public partial class pesq : System.Web.UI.Page
 				anchor1.Attributes["href"] = ahref;
 				anchor1.Attributes["class"] = "profile_img_wrapper";
 				anchor2.Attributes["href"] = ahref;
+				name.CssClass = "res_title";
 				name.Controls.Add(new LiteralControl(result["name"].ToString()));
 				res_bio.Controls.Add(new LiteralControl(result["bio"].ToString()));
+				res_text.CssClass = "res_text";
 
 				//adds each control to it's parent and so
 				anchor1.Controls.Add(pic);
@@ -78,5 +80,15 @@ public partial class pesq : System.Web.UI.Page
 		{
 			container.Controls.Add(new LiteralControl("Nenhum resultado encontrado."));
 		}
+	}
+
+	public void logout(object sender, EventArgs e)
+	{
+		this.Logout();
+	}
+	public void btnPesq_Click(object sender, EventArgs e)
+	{
+		if (txtSearchBox.Text != "")
+			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
 	}
 }

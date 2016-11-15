@@ -15,6 +15,13 @@
 		<form id="form1" runat="server">
 			<nav>
 				<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
+				<input type='button' value='config' onclick='window.location="<%=FileName.Config%>"' />
+				<input type='button' value='profile' onclick='window.location="<%=FileName.Profile%>"' />
+
+				<div id='pesquisa' class='navegador'>
+					<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+					<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' />
+				</div>
 			</nav>
 
 			<article id='config_container'>

@@ -12,14 +12,14 @@
 	<body>
 		<form runat='server'>
 			<nav>
-				<asp:Button id='btnLogout' runat='server' text='logout' onclick='logout' usesubmitbehavior='false' />
+				<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
 				<input type='button' value='config' onclick='window.location="<%=FileName.Config%>"' />
-				<br />
+				<input type='button' value='profile' onclick='window.location="<%=FileName.Profile%>"' />
 
 				<div id='pesquisa' class='navegador'>
 					<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+					<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' />
 				</div>
-				<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' /><br />
 			</nav>
 			<article id="corpo">
 				<div class="tituloamigos">
