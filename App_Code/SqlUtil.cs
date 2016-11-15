@@ -17,4 +17,10 @@ public static class SqlUtil
 		sqlds.UpdateCommand = query;
 		return sqlds.Update();
 	}
+
+	public static int InsertFromQuery(this SqlDataSource sqlds, string query)
+	{
+		sqlds.InsertCommand = query;
+		return sqlds.Insert();
+	}
 }

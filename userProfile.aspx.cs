@@ -54,6 +54,7 @@ public partial class userProfile : System.Web.UI.Page
 		lblBio.Text = "Este usuario nao tem bio";
 		if (user["bio"].ToString() != "")
 			lblBio.Text = user["bio"].ToString();
+		load_posts();
 
 		//controla o que aparece se o perfil for meu ou não
 		if (!myProfile)
@@ -65,7 +66,7 @@ public partial class userProfile : System.Web.UI.Page
 			updateFriendBtn();
 		}
 	}
-#region "commonProfile"
+#region "commonProfile"/*{{{*/
 	public void logout(object sender, EventArgs e)
 	{
 		this.Logout();
@@ -81,11 +82,102 @@ public partial class userProfile : System.Web.UI.Page
 		if (txtSearchBox.Text != "")
 			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
 	}
-#endregion
-#region "myProfile"
-#endregion
-#region "othersProfile"
-#region "Friend Request"
+#endregion/*}}}*/
+#region "myProfile"/*{{{*/
+	public void btnPost_Click(object sender, EventArgs e)
+	{
+		if (txtPost_content.Text == "")
+			return;
+
+		//
+		//Falta colocar os comentarios
+		//
+		//set os padroes da pesquisa
+		string content = txtPost_content.Text,
+			   id_users = (string)Session["myemail"],
+			   date = DateTime.Now.ToString("yyyy-MM-dd"),
+			   time = DateTime.Now.ToString("HH:mm:ss"),
+			   can_comments = "1";
+
+		//faz a pesquisa propriamente dita
+		Sqlds1.InsertFromQuery(
+				"INSERT INTO posts(id_users, content, `date`, `time`, can_comments) " +
+				"VALUES('"+id_users+"', '"+content+"', '"+date+"','"+time+"', '"+can_comments+"')"
+				);
+		txtPost_content.Text = "";
+		Response.Redirect(Request.Url.ToString(), true);
+	}
+	//numero maximo de posts por carregamento
+	int sanityControl = 10;
+	private void load_posts()
+	{
+		DataTable dt = Sqlds1.QueryToTable(
+				"Select p.id_users, u.name, p.id_groups, p.content, p.`date`, p.`time`, p.can_comments "+
+				"FROM posts p INNER JOIN users u ON u.email = p.id_users WHERE id_users = '"+profileId+"' ORDER BY id DESC");
+
+		Control posts_wrapper = FindControl("posts_wrapper");
+		//essa é a parte onde se colocam os controles dentro de outros
+		//e vc não quer ver isso, nem voce, nem eu xD
+		//for do capiroto {{{
+		int i = 0; // contador
+		int maxPosts = dt.Rows.Count;
+		foreach (DataRow Post in dt.Rows)
+		{
+			//se passar do numero maximo, quebra o loop
+			if (i > sanityControl - 1)
+				break;
+
+			//cria os componentes
+			WebControl post = new WebControl(HtmlTextWriterTag.Div),
+					   post_title = new WebControl(HtmlTextWriterTag.H4),
+					   post_body = new WebControl(HtmlTextWriterTag.P),
+					   comments_container = new WebControl(HtmlTextWriterTag.Div),
+					   hr = new WebControl(HtmlTextWriterTag.Hr);
+
+			post.CssClass = "post";
+			post_title.Controls.Add(new LiteralControl(
+						Post["name"] + " postou em " + Post["date"] + " " + Post["time"]
+						));
+			post_body.Controls.Add(new LiteralControl((string)Post["content"]));
+			comments_container.CssClass = "comments_container";
+
+			if ((bool)Post["can_comments"])
+			{
+				//query dos commentarios
+
+				//maximo de commentarios
+				int maxComments = 2;
+				for(int x = 0; x <= maxComments; x++)
+				{
+					WebControl commenter_img = new WebControl(HtmlTextWriterTag.Img),
+							   commenter_name = new WebControl(HtmlTextWriterTag.H6),
+							   commenter_comment = new WebControl(HtmlTextWriterTag.P);
+				}
+			}
+
+			//finish by adding everything to its place
+			post.Controls.Add(post_title);
+			post.Controls.Add(post_body);
+			post.Controls.Add(comments_container);
+			post.Controls.Add(hr);
+			posts_wrapper.Controls.Add(post);
+
+			//updates postinprofile to continuos loading posts
+			Session["postinpage"] = i;
+			i++;
+		}
+		if (i < maxPosts)
+		{
+			WebControl showMore = new WebControl(HtmlTextWriterTag.Div);
+			showMore.Attributes["id"] = "showMore";
+			showMore.Controls.Add(new LiteralControl("Mostrar mais"));
+			posts_wrapper.Controls.Add(showMore);
+		}
+		//}}}
+	}
+#endregion/*}}}*/
+#region "othersProfile"/*{{{*/
+#region "Friend Request"/*{{{*/
 	public void friendRequest(object sender, EventArgs e)
 	{
 		string res = testForFriendship("status");
@@ -158,48 +250,48 @@ public partial class userProfile : System.Web.UI.Page
 			btnAddFriend.Text = "Desfazer amizade?";
 		}
 	}
-#endregion
-#endregion
-#region "encapsulated"
+#endregion/*}}}*/
+#endregion/*}}}*/
+#region "encapsulated"/*{{{*/
 	public DataRow CurUser { get { return user; } }
-#endregion
+#endregion/*}}}*/
 }
-#region "commended/feed"
-/*
- *tem que adicionar o botão no .aspx pq o asp não sabe o que é comentario
- */
-#region "Feed"
-//public void addFeed(object sender, EventArgs e)
-//{
-//if(!testForFeed())
-//{
-//Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
-//Sqlds1.Insert();
-//}
-//else
-//{
-//Sqlds1.DeleteCommand = "DELETE FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';";
-//Sqlds1.Delete();
-//}
-//updateFeedBtn();
-//}
+#region "commended/feed"/*{{{*/
+	/*
+	 *tem que adicionar o botão no .aspx pq o asp não sabe o que é comentario
+	 */
+#region "Feed"/*{{{*/
+	//public void addFeed(object sender, EventArgs e)
+	//{
+	//if(!testForFeed())
+	//{
+	//Sqlds1.InsertCommand = "insert into feeds(id_me, id_following) values ('"+Session["myemail"]+"', '"+profileId+"');";
+	//Sqlds1.Insert();
+	//}
+	//else
+	//{
+	//Sqlds1.DeleteCommand = "DELETE FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';";
+	//Sqlds1.Delete();
+	//}
+	//updateFeedBtn();
+	//}
 
-//public bool testForFeed()
-//{
-//DataTable dt = Sqlds1.QueryToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
+	//public bool testForFeed()
+	//{
+	//DataTable dt = Sqlds1.QueryToTable("SELECT id_me, id_following FROM feeds WHERE id_me = '"+Session["myemail"]+"' AND id_following = '"+profileId+"';");
 
-//if (dt.Rows.Count == 0)
-//return false;
-//else
-//return true;
-//}
+	//if (dt.Rows.Count == 0)
+	//return false;
+	//else
+	//return true;
+	//}
 
-//public void updateFeedBtn()
-//{
-//if(!testForFeed())
-//btnFollow.Text = "Seguir essa pessoa?";
-//else
-//btnFollow.Text = "Deixar de seguir?";
-//}
-#endregion
-#endregion
+	//public void updateFeedBtn()
+	//{
+	//if(!testForFeed())
+	//btnFollow.Text = "Seguir essa pessoa?";
+	//else
+	//btnFollow.Text = "Deixar de seguir?";
+	//}
+#endregion/*}}}*/
+#endregion/*}}}*/
