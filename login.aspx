@@ -20,7 +20,7 @@
 					<h4>Loginin-se!</h4>
 				</span>
 				<span id='regp1' class='regPage'>
-					<asp:TextBox ID="txtEmail" runat="server" placeholder="Email"></asp:TextBox><br />
+					<asp:TextBox ID="txtEmail" runat="server" placeholder="Email" autofocus></asp:TextBox><br />
 					<asp:TextBox type="password" ID="txtPass" runat="server" placeholder="Senha"></asp:TextBox><br />
 				</span>
 				<div class='controlBox'>
