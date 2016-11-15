@@ -53,6 +53,7 @@
 			</article>
 			<asp:SqlDataSource ID="Sqlds1" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>">
 			</asp:SqlDataSource>
+			<!--<script type='text/javascript' src='script/autoShowMore.js'></script> [>not working as expected<]-->
 		</form>
 	</body>
 </html>
