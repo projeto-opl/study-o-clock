@@ -31,9 +31,25 @@ nav {
 	box-shadow: 0px 7px 20px -5px rgba(0,0,0,0.75);
 }
 
+nav + div.content {
+	margin-top: 200px;
+}
+
 article {
-	margin-top: 240px;
-}/*}}}*/
+	margin: 5px auto;
+	background:#e1e1e1;
+	border-radius: 10px;
+	width: 590px;
+	box-shadow: inset 0 3px 8px rgba(0, 0, 0, .25);
+	padding: 5px;
+}
+article h1, h2, h3, h4, h5, h6 {
+	margin: 5px auto;
+}
+article hr {
+	clear: both;
+}
+/*}}}*/
 
 .content {
 	width: 600px;
@@ -53,8 +69,20 @@ article {
 	max-width: 100%;
 	max-height: 100%;
 }
+.left {
+	float: left;
+}
+.right {
+	float: right;
+}
+nav .vertical-center {
+	margin-top: 1.7em;
+	display: flex;
+	justify-content: center;
+}
 
 #txtSearchBox {
+	margin-top: 2.5em;
 	width: 100%;
 	padding-left: 0;
 	padding-right: 0;
@@ -95,4 +123,21 @@ article {
 #profile-controls {
 	display: flex;
 	justify-content: space-around;
+}
+#logo {
+	margin-left: 60px;
+	height:90px;
+	width:90px;
+	top: 0;
+	position: relative;
+	border-radius:5px;
+	transition:all .2s ease-in;
+}
+#logo:hover {
+	top:5px;
+	background-color:#3cbc8d;
+}
+
+nav .right a {
+	margin-right: 8px;
 }

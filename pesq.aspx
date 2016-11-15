@@ -12,11 +12,24 @@
 	<body>
 		<form id="form1" runat="server">
 			<nav>
-				<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
-				<input type='button' value='config' onclick='window.location="<%=FileName.Config%>"' />
-				<input type='button' value='profile' onclick='window.location="<%=FileName.Profile%>"' />
+				<div class='left'>
+					<img id="logo" src="images/O.png" alt="study" height="90" />
+				</div>
 
-				<div id='pesquisa' class='navegador'>
+				<div class='right vertical-center'>
+					<a id="carinha" href='<%=FileName.Profile%>'>
+						<img src="images/perfil.png" height='45'/>
+					</a>
+					<a id="forum" href='#naotemainda'>
+						<img src="images/forum.png" height='45'/>
+					</a>
+					<a id='config' href='<%=FileName.Config%>'>
+						<img src="images/config.png" height='45'/>
+					</a>
+					<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
+				</div>
+
+				<div class='content'>
 					<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
 					<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' />
 				</div>

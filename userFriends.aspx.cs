@@ -11,7 +11,7 @@ public partial class userFriends : System.Web.UI.Page
 	bool myProfile = false;
 	int friendsQtd;
 	string profileId;
-	DataRow curUser;
+	DataRow user;
 
 	protected void Page_Load(object sender, EventArgs e)
 	{
@@ -31,11 +31,31 @@ public partial class userFriends : System.Web.UI.Page
 		Load_friends();
 		try
 		{
-			curUser = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+			user = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
 		}
 		catch (IndexOutOfRangeException)
 		{
 			Response.Redirect("error/404");
+		}
+		Load_infos();
+	}
+	public void Load_infos()
+	{
+		//Opções que vão aparecer para todos, independente se é o perfil é meu ou não
+		lblName.Text = user["name"].ToString();
+		imgProfilePicture.ImageUrl = FileName.ImgFolder + user["img"].ToString();
+		lblBio.Text = "Este usuario nao tem bio";
+		if (user["bio"].ToString() != "")
+			lblBio.Text = user["bio"].ToString();
+
+		//controla o que aparece se o perfil for meu ou não
+		if (!myProfile)
+		{
+			//btnFollow.Visible = true;
+			//updateFeedBtn();
+
+			btnAddFriend.Visible = true;
+			updateFriendBtn();
 		}
 	}
 
@@ -75,18 +95,99 @@ public partial class userFriends : System.Web.UI.Page
 		}
 	}
 
+	#region encapsulated
+	public DataRow CurUser {get { return user; } }
+	public int FriendsQtd { get { return friendsQtd; } }
+	#endregion
+
+	// daqui em diante é copiado do userProfile.aspx.cs
 	public void logout(object sender, EventArgs e)
 	{
 		this.Logout();
+	}
+	public void showFriends(object sender, EventArgs e)
+	{
+		Response.Redirect(FileName.FriendList+"?user=" + profileId);
 	}
 	public void btnPesq_Click(object sender, EventArgs e)
 	{
 		if (txtSearchBox.Text != "")
 			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
 	}
+#region "othersProfile"/*{{{*/
+#region "Friend Request"/*{{{*/
+	public void friendRequest(object sender, EventArgs e)
+	{
+		string res = testForFriendship("status");
+		if (res == null || res == "d")
+		{
+			Sqlds1.InsertCommand = "insert into friends(id_request, id_target, date_sent) values "+
+				"('"+Session["myemail"]+"', '"+profileId+"', now());";
+			Sqlds1.Insert();
+			//if (!testForFeed())
+			//addFeed(e,e);
+			//Send Notification
+		}
+		else if (res == "p")
+		{
+			if (testForFriendship("id_request") == (string)Session["myemail"])
+			{
+				//opens lightbox asking if want to send another notification
+			}
+			else
+			{
+				Sqlds1.UpdateCommand = "UPDATE friends SET `status` = 'a', date_anwser = NOW() WHERE '"+
+					Session["myemail"]+"' in (id_target, id_request) AND '"+
+					profileId+"' in (id_target, id_request) ORDER BY id DESC LIMIT 1;";
+				Sqlds1.Update();
+			}
+		}
+		else if (res == "a")
+		{
+			//opens lightbox asking if want to cancel friendship
+			Sqlds1.UpdateCommand = "UPDATE friends SET `status` = 'd' WHERE '"+
+				Session["myemail"]+"' in (id_target, id_request) AND '"+
+				profileId+"' in (id_target, id_request)";
+			Sqlds1.Update();
+		}
+		updateFriendBtn();
+	}
 
-	#region encapsulated
-	public DataRow CurUser {get { return curUser; } }
-	public int FriendsQtd { get { return friendsQtd; } }
-	#endregion
+	public string testForFriendship(string column)
+	{
+		DataTable dt = Sqlds1.QueryToTable("select `status` as 'status', id_request "+ 
+				"from friends "+
+				"where '"+Session["myemail"]+"' in (id_target, id_request) AND '"+profileId+"' in (id_target, id_request) ORDER BY id DESC;");
+
+		if(dt.Rows.Count == 0)
+			return null;
+		else
+			return dt.Rows[0][column].ToString();
+	}
+
+	public void updateFriendBtn()
+	{
+		string res = testForFriendship("status");
+		if(res == null || res == "d")
+		{
+			btnAddFriend.Text = "Adicionar amigo?";
+		}
+		else if (res == "p")
+		{
+			if (testForFriendship("id_request") == (string)Session["myemail"])
+			{
+				btnAddFriend.Text = "Solicitacao enviada";
+			}
+			else
+			{
+				btnAddFriend.Text = "Aceitar Solicitacao?";
+			}
+		}
+		else if (res == "a")
+		{
+			btnAddFriend.Text = "Desfazer amizade?";
+		}
+	}
+#endregion/*}}}*/
+#endregion/*}}}*/
 }
