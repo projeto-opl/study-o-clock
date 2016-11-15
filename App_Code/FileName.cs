@@ -8,6 +8,7 @@ public static class FileName
 		   profile = "userProfile.aspx",
 		   pesqPage = "pesq.aspx",
 		   config = "config.aspx",
+		   post = "post.apsx",
 		   imgFolder = "images/userProfile/";
 
 	public static string Login { get { return login; } }
@@ -16,5 +17,6 @@ public static class FileName
 	public static string Profile { get { return profile; } }
 	public static string PesqPage { get { return pesqPage; } }
 	public static string Config { get { return config; } }
+	public static string Post { get { return post; } }
 	public static string ImgFolder { get { return imgFolder; } }
 }

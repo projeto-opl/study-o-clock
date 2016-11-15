@@ -95,8 +95,8 @@ public partial class userProfile : System.Web.UI.Page
 	private void load_posts()
 	{
 		DataTable dt = Sqlds1.QueryToTable(
-				"Select p.id_users, u.name, p.id_groups, p.content, p.`date`, p.`time`, p.can_comments "+
-				"FROM posts p INNER JOIN users u ON u.email = p.id_users WHERE id_users = '"+profileId+"' ORDER BY id DESC");
+				"Select p.id, u.name, p.id_groups, p.content, p.`date`, p.`time`, p.can_comments "+
+				"FROM posts p INNER JOIN users u ON u.email = p.id_users WHERE p.id_users = '"+profileId+"' ORDER BY p.id DESC");
 
 		Control posts_wrapper = FindControl("posts_wrapper");
 		//essa é a parte onde se colocam os controles dentro de outros
@@ -118,37 +118,61 @@ public partial class userProfile : System.Web.UI.Page
 
 			//cria os componentes
 			WebControl post = new WebControl(HtmlTextWriterTag.Div),
+					   link = new WebControl(HtmlTextWriterTag.A),
 					   post_title = new WebControl(HtmlTextWriterTag.H5),
 					   post_body = new WebControl(HtmlTextWriterTag.P),
-					   comments_container = new WebControl(HtmlTextWriterTag.Div),
+					   comments_wrapper = new WebControl(HtmlTextWriterTag.Div),
 					   hr = new WebControl(HtmlTextWriterTag.Hr);
 
 			post.CssClass = "post";
+			link.Attributes["href"] = FileName.Post + "?p=" + Post["id"];
+			link.Controls.Add(new LiteralControl("Ver o post inteiro"));
 			post_title.Controls.Add(new LiteralControl(
 						Post["name"] +
 						" postou em " + Convert.ToDateTime(Post["date"]).ToString("dd/MM/yyyy") + 
 						" " + Post["time"]
 						));
 			post_body.Controls.Add(new LiteralControl((string)Post["content"]));
-			comments_container.CssClass = "comments_container";
+			comments_wrapper.CssClass = "comments_wrapper";
 
 			if ((bool)Post["can_comments"])
 			{
 				//query dos commentarios
+				DataTable comments = Sqlds1.QueryToTable(
+						"SELECT u.img, u.name, c.content, c.`datetime`"+
+						"	FROM comments c inner join users u on u.email = c.id_users"+
+						"	WHERE c.id_posts = '"+Post["id"]+"'"+
+						"	ORDER BY c.id DESC LIMIT "+maxComments+";"
+						);
 
-				for(int x = 0; x <= maxComments -1; x++)
+				foreach(DataRow comment in comments.Rows)
 				{
 					WebControl commenter_img = new WebControl(HtmlTextWriterTag.Img),
+							   comments_container = new WebControl(HtmlTextWriterTag.Div),
 							   commenter_name = new WebControl(HtmlTextWriterTag.H6),
 							   commenter_comment = new WebControl(HtmlTextWriterTag.P);
+
+					comments_container.CssClass = "comments_container";
+					commenter_img.Attributes["src"] = (string)comment["img"];
+					commenter_name.Controls.Add(new LiteralControl(
+								comment["name"] +
+								"comentou em " + comment["datetime"]));
+					commenter_comment.Controls.Add(new LiteralControl(
+								(string)comment["content"]));
+
+					comments_container.Controls.Add(commenter_img);
+					comments_container.Controls.Add(commenter_name);
+					comments_container.Controls.Add(commenter_comment);
+					comments_wrapper.Controls.Add(comments_container);
 				}
 			}
 
 			//finish by adding everything to its place
 			post.Controls.Add(post_title);
 			post.Controls.Add(post_body);
-			post.Controls.Add(comments_container);
+			post.Controls.Add(link);
 			post.Controls.Add(hr);
+			post.Controls.Add(comments_wrapper);
 			posts_wrapper.Controls.Add(post);
 
 			//updates postinprofile to continuos loading posts

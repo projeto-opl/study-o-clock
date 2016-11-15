@@ -1,8 +1,18 @@
 #posts_container {
 	margin: 0 auto 50px;
 }
+#post_control {
+	margin-top: 5px;
+	background:#e1e1e1;
+	border-radius: 10px;
+	width: 590px;
+	box-shadow: inset 0 3px 8px rgba(0, 0, 0, .25);
+	padding: 5px;
+	display: flex;
+}
 #txtPost_content {
-	width: 500px;
+	width: 95%;
+	border-radius: 5px;
 }
 #showMore {
 	display: table;
@@ -11,8 +21,26 @@
 	background-color: lightgray;
 	border-radius: 5px;
 	text-align: center;
-	padding: 1em;
+	padding: 1em 0;
 }
 #showMore:hover {
 	cursor: pointer;
+}
+
+.post {
+	margin: 5px auto;
+	background:#e1e1e1;
+	border-radius: 10px;
+	width: 590px;
+	box-shadow: inset 0 3px 8px rgba(0, 0, 0, .25);
+	padding: 5px;
+}
+.post h5 {
+	margin: 5px auto 0;
+}
+.post a {
+	float: right;
+}
+.post hr {
+	clear: both;
 }
