@@ -8,8 +8,8 @@ using System.Web.UI.WebControls;
 
 public partial class Group : System.Web.UI.Page
 {
-	bool myProfile = false;
-	string profileId;
+	bool isAdm = false;
+	string groupId;
 	DataRow user;
 
 	protected void Page_Load(object sender, EventArgs e)
@@ -19,27 +19,25 @@ public partial class Group : System.Web.UI.Page
 		{
 			//build link to go back to this page after login
 			string link;
-			if (Request.QueryString["user"] != null)
-				link = FileName.Login+"?r="+FileName.Profile+"&qsal=1&qs0=user&qv0="+ Request.QueryString["user"];
+			if (Request.QueryString["g"] != null)
+				link = FileName.Login+"?r="+FileName.Group+"&qsal=1&qs0=g&qv0="+ Request.QueryString["g"];
 			else
-				link = FileName.Login+"?r="+FileName.Profile;
+				link = FileName.Login+"?r="+FileName.Group;
 
 			Response.Redirect(link);
 		}
 
 		//se tiver Qs, seta o id da pagina para ele
-		if (Request.QueryString["user"] != null)
-			profileId = Request.QueryString["user"];
+		if (Request.QueryString["g"] != null)
+			groupId = Request.QueryString["g"];
 		else
-			profileId = (string)Session["myemail"];
-
-		//se a pagina for a mesma da session, o perfil é seu
-		if (profileId == (string)Session["myemail"])
-			myProfile = true;
+			groupId = (string)Session["myemail"];
 
 		try
 		{
-			user = Sqlds1.QueryToTable("SELECT name, img, bio FROM users WHERE email = '" + profileId + "';").Rows[0];
+			string command = "select gr.name, rel.is_adm, gr.id from groups gr inner join rel_groups rel on gr.id = rel.id_groups inner join users us on rel.id_users = us.email"+
+				" where gr.id = '"+groupId+"' and us.email = '"+Session["myemail"]+"';";
+			user = Sqlds1.QueryToTable(command).Rows[0];
 		}
 		catch (IndexOutOfRangeException)
 		{
@@ -51,32 +49,39 @@ public partial class Group : System.Web.UI.Page
 	public void Load_infos()
 	{
 		//Opções que vão aparecer para todos, independente se é o perfil é meu ou não
-		lblName.Text = user["name"].ToString();
-		imgProfilePicture.ImageUrl = FileName.ImgFolder + user["img"].ToString();
-		lblBio.Text = "Este usuario nao tem bio";
-		if (user["bio"].ToString() != "")
-			lblBio.Text = user["bio"].ToString();
+		lblGroup.Text = user["name"].ToString();
+		imgProfilePicture.ImageUrl = "images/group.png";
 
 		//controla o que aparece se o perfil for meu ou não
-		if (myProfile)
+		if ((bool)user["is_adm"])
 		{
-		}
-		else
-		{
+			btnEdit.Visible = true;
 		}
 	}
-	public void logout(object sender, EventArgs e)
+	private void Mudar_nome()
 	{
-		this.Logout();
+		string command = "Update groups gr SET gr.name = '" + txtEdit.Text + "' where gr.id = 2;";
+		Sqlds1.UpdateCommand = command;
+		Sqlds1.Update();
 	}
-
-	public void showFriends(object sender, EventArgs e)
+	protected void btnMembros_Click(object sender, EventArgs e)
 	{
-		Response.Redirect(FileName.FriendList+"?user=" + profileId);
+		Response.Redirect("Members.aspx");
 	}
-
-	public void showGroups(object sender,EventArgs e)
+	protected void btnEdit_Click(object sender, EventArgs e)
 	{
-		Response.Redirect(FileName.UserGroups+"?u="+profileId);
+		if(!txtEdit.Visible)
+		{
+			lblGroup.Text = "";
+			txtEdit.Visible = true;
+			btnEdit.Text = "Finalizar";
+		} else
+		{
+			Mudar_nome();
+			lblGroup.Text = txtEdit.Text;
+			txtEdit.Text = null;
+			txtEdit.Visible = false;
+			btnEdit.Text = "Editar";
+		}
 	}
 }

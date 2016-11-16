@@ -20,8 +20,8 @@ public partial class userGroups : System.Web.UI.Page
 			Response.Redirect(FileName.Login);
 
 		// testa se tem querystring user, se não tiver, não faz nada...
-		if (Request.QueryString["user"] != null)
-			profileId = Request.QueryString["user"];
+		if (Request.QueryString["u"] != null)
+			profileId = Request.QueryString["u"];
 		else
 			profileId = (string)Session["myemail"];
 

@@ -9,13 +9,14 @@
 	</div>
 	<div id='face_card'>
 		<div id='card'>
-			<h1><asp:Label id='lblName' runat='server'></asp:Label></h1>
-			<br />
-			<asp:label id='lblBio' runat='server'></asp:label>
+			<h1>
+				<asp:Label id='lblGroup' runat='server'></asp:Label>
+				<asp:TextBox ID="txtEdit" runat="server" Visible="False"></asp:TextBox>
+			</h1>
 			<br />
 			<div id='profile-controls'>
-				<asp:button id='btnShowFriends' runat='server' text='Amigos dessa pessoa' UseSubmitBehavior='false' onclick='showFriends' />
-				<asp:button id='btnShowGroups' runat='server' text='Grupos que participa' UseSubmitBehavior='false' onclick='showGroups' />
+				<asp:Button ID="btnMembros" runat="server" text='Membros' OnClick="btnMembros_Click" />
+				<asp:Button ID="btnEdit" runat="server" OnClick="btnEdit_Click" Text="Editar" Visible='false'/>
 			</div>
 		</div>
 	</div>

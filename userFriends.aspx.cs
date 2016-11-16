@@ -111,6 +111,11 @@ public partial class userFriends : System.Web.UI.Page
 	{
 		Response.Redirect(FileName.FriendList+"?user=" + profileId);
 	}
+
+	public void showGroups(object sender,EventArgs e)
+	{
+		Response.Redirect(FileName.UserGroups+"?u="+profileId);
+	}
 	public void btnPesq_Click(object sender, EventArgs e)
 	{
 		if (txtSearchBox.Text != "")
