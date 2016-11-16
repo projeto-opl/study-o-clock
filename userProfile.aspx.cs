@@ -139,31 +139,43 @@ public partial class userProfile : System.Web.UI.Page
 			{
 				//query dos commentarios
 				DataTable comments = Sqlds1.QueryToTable(
-						"SELECT u.img, u.name, c.content, c.`datetime`"+
-						"	FROM comments c inner join users u on u.email = c.id_users"+
+						"SELECT"+
+						"	u.name,"+
+						"	u.email,"+
+						"	u.img,"+
+						"	c.`datetime`,"+
+						"	c.content"+
+						"	FROM"+
+						"	comments c inner join"+
+						"	users u on u.email = c.id_users"+
 						"	WHERE c.id_posts = '"+Post["id"]+"'"+
-						"	ORDER BY c.id DESC LIMIT "+maxComments+";"
+						"	ORDER BY c.id DESC"+
+						"	LIMIT "+maxComments+";"
 						);
 
 				foreach(DataRow comment in comments.Rows)
 				{
+					//create things
 					WebControl commenter_img = new WebControl(HtmlTextWriterTag.Img),
-							   comments_container = new WebControl(HtmlTextWriterTag.Div),
 							   commenter_name = new WebControl(HtmlTextWriterTag.H6),
 							   commenter_comment = new WebControl(HtmlTextWriterTag.P);
 
-					comments_container.CssClass = "comments_container";
-					commenter_img.Attributes["src"] = (string)comment["img"];
+					//config things
+					commenter_img.Attributes["src"] = FileName.ImgFolder + comment["img"];
 					commenter_name.Controls.Add(new LiteralControl(
-								comment["name"] +
-								"comentou em " + comment["datetime"]));
+								"<a href='"+FileName.Profile+"?user="+comment["email"]+"'>"
+								+ comment["name"] +
+								"</a> comentou em " + comment["datetime"]));
 					commenter_comment.Controls.Add(new LiteralControl(
 								(string)comment["content"]));
 
-					comments_container.Controls.Add(commenter_img);
-					comments_container.Controls.Add(commenter_name);
-					comments_container.Controls.Add(commenter_comment);
-					comments_wrapper.Controls.Add(comments_container);
+					//finish adding everthing to its place
+					comments_wrapper.Controls.Add(new LiteralControl("<div><div class='profile_img_wrapper pic_xsmall comment-img'>"));
+					comments_wrapper.Controls.Add(commenter_img);
+					comments_wrapper.Controls.Add(new LiteralControl("</div><div class='comment-text'>"));
+					comments_wrapper.Controls.Add(commenter_name);
+					comments_wrapper.Controls.Add(commenter_comment);
+					comments_wrapper.Controls.Add(new LiteralControl("</div></div><hr />"));
 				}
 			}
 

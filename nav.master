@@ -1,0 +1,45 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="nav.master.cs" Inherits="nav" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head runat="server">
+		<title></title>
+		<link type='text/css' rel='stylesheet' href='style/main.css' />
+		<link type='text/css' rel='stylesheet' href='style/inputs.css' />
+		<asp:ContentPlaceHolder id="head" runat="server">
+		</asp:ContentPlaceHolder>
+	</head>
+	<body>
+		<form id="form1" runat="server">
+			<nav>
+				<div class='left'>
+					<img id="logo" src="images/O.png" alt="study" height="90" />
+				</div>
+
+				<div class='right vertical-center'>
+					<a id="carinha" href='<%=FileName.Profile%>'>
+						<img src="images/perfil.png" height='45'/>
+					</a>
+					<a id="forum" href='#naotemainda'>
+						<img src="images/forum.png" height='45'/>
+					</a>
+					<a id='config' href='<%=FileName.Config%>'>
+						<img src="images/config.png" height='45'/>
+					</a>
+					<asp:Button id='btnLogout' runat='server' text='logout' Onclick='logout' UseSubmitBehavior='false' />
+				</div>
+
+				<div class='content'>
+					<asp:TextBox id='txtSearchBox' runat='server' placeholder='pesquisar'></asp:TextBox>
+					<asp:Button style='display:none;' text='🔎' id='btnPesq' runat='server' onclick='btnPesq_Click' UseSubmitBehavior='true' />
+				</div>
+			</nav>
+			<div class='content'>
+				<asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+
+				</asp:ContentPlaceHolder>
+			</div>
+		</form>
+	</body>
+</html>

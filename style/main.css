@@ -37,6 +37,7 @@ nav + div.content {
 }
 
 article {
+	min-height: 70px;
 	margin: 5px auto;
 	background:#e1e1e1;
 	border-radius: 10px;
@@ -57,7 +58,7 @@ article hr {
 	margin: 0 auto;
 }
 
-.profile_img_wrapper {
+.profile_img_wrapper {/*{{{*/
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -71,6 +72,15 @@ article hr {
 	max-width: 100%;
 	max-height: 100%;
 }
+.pic_xsmall {
+	height: 70px;
+	width: 70px;
+}
+.pic_small {
+	height: 100px;
+	width: 100px;
+}/*}}}*/
+
 .left {
 	float: left;
 }
@@ -81,6 +91,24 @@ nav .vertical-center {
 	margin-top: 1.7em;
 	display: flex;
 	justify-content: center;
+}
+
+nav .right a {
+	margin-right: 8px;
+}
+.multiline-submit {
+	width: 590px;
+	display: flex;
+}
+.multiline-submit textarea {
+	width: 95%;
+	border-radius: 5px;
+}
+
+.comment-img {
+	float: left;
+	margin: 5px;
+	margin-top: 0;
 }
 
 #txtSearchBox {
@@ -138,8 +166,4 @@ nav .vertical-center {
 #logo:hover {
 	top:5px;
 	background-color:#3cbc8d;
-}
-
-nav .right a {
-	margin-right: 8px;
 }
