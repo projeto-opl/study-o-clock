@@ -82,13 +82,15 @@ public partial class userFriends : System.Web.UI.Page
 					   name = new WebControl(HtmlTextWriterTag.H5);
 
 			//set the attributes to the objects
-			entry.CssClass = "id_user";
+			entry.CssClass = "friends_entry";
 			pic.Attributes["src"] = FileName.ImgFolder + friend["fr_img"].ToString();
 			a.Attributes["href"] = FileName.Profile+"?user=" + friend["fr_email"];
 			name.Controls.Add(new LiteralControl(friend["fr_name"].ToString()));
 
 			//adds each control to it's parent and so
+			entry.Controls.Add(new LiteralControl("<div class='profile_img_wrapper pic_small'>"));
 			entry.Controls.Add(pic);
+			entry.Controls.Add(new LiteralControl("</div>"));
 			entry.Controls.Add(name);
 			a.Controls.Add(entry);
 			div.Controls.Add(a);

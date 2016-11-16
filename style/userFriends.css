@@ -1,12 +1,10 @@
 #friends_facename {
-
+	display: flex;
+	flex-flow: row wrap;
 }
 .friends_entry {
+	margin: 10px;
 	text-decoration: none;
-}
-.friends_pic {
-
-}
-.friends_name {
-
+	text-align: center;
+	width: 100px;
 }
