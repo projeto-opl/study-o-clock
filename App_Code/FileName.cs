@@ -9,6 +9,9 @@ public static class FileName
 		   pesqPage = "pesq.aspx",
 		   config = "config.aspx",
 		   post = "post.aspx",
+		   userGroups = "userGroups.aspx",
+		   group = "Group.aspx",
+		   groupMembers = "",
 		   imgFolder = "images/userProfile/";
 
 	public static string Login { get { return login; } }
@@ -18,5 +21,8 @@ public static class FileName
 	public static string PesqPage { get { return pesqPage; } }
 	public static string Config { get { return config; } }
 	public static string Post { get { return post; } }
+	public static string UserGroups { get { return userGroups; } }
+	public static string Group { get { return group; } }
+	public static string GroupMembers { get { return groupMembers; } }
 	public static string ImgFolder { get { return imgFolder; } }
 }

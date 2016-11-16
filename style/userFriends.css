@@ -1,4 +1,4 @@
-#friends_facename {
+.friends {
 	display: flex;
 	flex-flow: row wrap;
 }

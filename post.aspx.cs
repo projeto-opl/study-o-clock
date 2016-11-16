@@ -113,7 +113,7 @@ public partial class Post : System.Web.UI.Page
 				);
 
 		//findcontrol mais cmplicado pq to usando master page
-		Control comments_wrapper = Master.FindControl("ContentPlaceHolder1").FindControl("comments_container");
+		Control comments_wrapper = Master.FindControl("cph").FindControl("comments_container");
 		//essa é a parte onde se colocam os controles dentro de outros
 		//e vc não quer ver isso, nem voce, nem eu xD
 		//foreach do capiroto {{{

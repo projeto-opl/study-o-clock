@@ -36,7 +36,7 @@
 				</div>
 			</nav>
 			<div class='content'>
-				<asp:ContentPlaceHolder id="ContentPlaceHolder1" runat="server">
+				<asp:ContentPlaceHolder id="cph" runat="server">
 
 				</asp:ContentPlaceHolder>
 			</div>

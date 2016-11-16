@@ -2,7 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
+<asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
 <article id='post_container' runat='server'>
 	<h5>
 		<asp:label id='post_title' runat='server'></asp:label>
