@@ -10,14 +10,21 @@ using System.Net.Mail;
 
 public partial class Cadastro : System.Web.UI.Page
 {
+	int totalRegPages = 2;
+
 	protected void Page_Load(object sender, EventArgs e)
 	{
 		if (Request.QueryString["regp"] == null)
 			return;
-		Page.ClientScript.RegisterStartupScript(this.GetType(),"text","goRegPage(2,2)",true);
+
+		Page.ClientScript.RegisterStartupScript(
+				this.GetType(),
+				"text",
+				"goRegPage("+(string)Request.QueryString["regp"]+","+totalRegPages+")",
+				true);
 	}
 
-	public static string SHA256Generator(string strInput)
+	public static string SHA256Generator(string strInput)/*{{{*/
 	{
 		SHA256 sha256 = new SHA256CryptoServiceProvider();
 
@@ -36,7 +43,7 @@ public partial class Cadastro : System.Web.UI.Page
 
 		// Return the hexadecimal SHA-256 hash code string.
 		return sbHash.ToString();
-	}
+	}/*}}}*/
 
 	protected void btnReg_Click(object sender, EventArgs e)
 	{
@@ -106,26 +113,37 @@ public partial class Cadastro : System.Web.UI.Page
 				catch (Exception err)
 				{
 					//handle it
-					//lista de erros:
+					//lista de erros possíveis:
 					//- email já cadastrado
 				}
 			}
 		}
 	}
 
+	///<summary>
+	///metodo que confirma se o codigo entrado esta certo
+	///</summary>
 	public void btnLogin_Click(object sender, EventArgs e)
 	{
+		//
+		// se a Session estiver OFF -> redirect to login
+		//                             (para redirecionar para o cadastro depois)
+		//
 		if ((string)Session["myemail"] == null)
-		{
 			Response.Redirect(FileName.Login+"?r=cadastro.aspx&qsal=1&qs0=regp&qv0=2");
-		}
+
+		//cria a variavel que contem o codig oenviado para o email da session
 		string code = SHA256Generator((string)Session["myemail"]).Substring(0,5);
+		//se estiver certo, redirect to profile
 		if (txtConfCode.Text == code)
-		{
 			Response.Redirect(FileName.Profile + "?user="+txtEmail.Text);
-		}
+		else
+			lblDif2.Text = "Codigo inserido incorreto, tente novamente";
 	}
 
+	///<summary>
+	///botão que volta para o login
+	///</summary>
 	public void btnBackToLogin(object sender, EventArgs e)
 	{
 		Response.Redirect(FileName.Login);

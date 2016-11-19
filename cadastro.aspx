@@ -19,6 +19,7 @@
 				<span class='title'>
 					<h4>Cadastre-se</h4>
 				</span>
+
 				<span id='regp1' class='regPage'>
 					<asp:TextBox ID="txtName" runat="server" placeholder='Nome'></asp:TextBox>
 					<asp:TextBox ID="txtEmail" runat="server" placeholder='Email'></asp:TextBox>
@@ -32,11 +33,14 @@
 						<asp:Button ID="btnBack" runat="server" Text="Voltar" UseSubmitBehavior='false' OnClick='btnBackToLogin' />
 					</div>
 				</span>
+
 				<span id='regp2' class='regPage'>
 					<p>Insira o Código de confirmação abaixo:</p>
 					<asp:TextBox id='txtConfCode' runat='server' placeholder='Código de ativação'></asp:TextBox>
+					<asp:Label ID="lblDif2" runat="server" ForeColor="Red"></asp:Label><br />
 					<asp:Button id='btnLogin' runat='server' Text='Confirmar' Onclick='btnLogin_Click'/>
 				</span>
+
 				<asp:SqlDataSource ID="SqlRinf" runat="server" ConnectionString="<%$ ConnectionStrings:rinfConnectionString %>" InsertCommand="INSERT INTO users(name, pass, email) VALUES (@Name, @Pass, @Email)" ProviderName="<%$ ConnectionStrings:rinfConnectionString.ProviderName %>" SelectCommand="SELECT * FROM users">
 				<InsertParameters>
 				<asp:ControlParameter ControlID="txtName" Name="Name" PropertyName="Text" />

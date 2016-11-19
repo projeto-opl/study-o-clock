@@ -18,9 +18,16 @@ public partial class config : System.Web.UI.Page
 		else
 			profileId = (string)Session["myemail"];
 
-		string query = "SELECT img, name, pass, bio "+
-			"FROM users WHERE email = '"+profileId+"';";
-		curSettings = Sqlds1.QueryToTable(query).Rows[0];
+		curSettings = Sqlds1.QueryToTable(
+			"SELECT"+
+			" img,"+
+			" name,"+
+			" pass,"+
+			" bio"+
+			" FROM users"+
+			" WHERE email = '"+profileId+"';"
+			).Rows[0];
+
 		//load info
 		Load_infos();
 	}
@@ -29,18 +36,22 @@ public partial class config : System.Web.UI.Page
 	{
 		//load img
 		profile_img.Attributes["src"] = FileName.ImgFolder + (string)curSettings["img"];
-		//txtName.Text = (string)curSettings["name"]; <- isso tava bugando tudo ... apesar de não fazer sentido... mas ok
-		//txtBio.Text = (string)curSettings["bio"];
 	}
 
+	///<summary>
+	///Salva as novas configurações
+	///</summary>
 	public void btnSave_Click(object sender, EventArgs e)
 	{
+		//cria uma linha para salvar as alterações baseada no esquema da tabela do 'curSetting'
 		DataRow newSettings = curSettings.Table.NewRow();
+		//clona os valores das colunas
 		newSettings.ItemArray = curSettings.ItemArray.Clone() as object[];
 
 		//check if the picture has changed {{{
 		if (picture_change.HasFile)
 		{
+			//cria o caminho do arquivo
 			string filename = picture_change.FileName;
 			filename = Path.GetFileName(filename);
 			filename = FileName.ImgFolder + filename;
@@ -67,12 +78,16 @@ public partial class config : System.Web.UI.Page
 		}
 		//}}}
 		//assign txtbox value to the newSettings {{{
-		//--Name
+
+		//
+		// Name
+		//
 		if (txtName.Text != "")
-		{
 			newSettings["name"] = txtName.Text;
-		}
-		//--password
+
+		//
+		// password
+		//
 		bool test1 = (new TextBox[] { txtPass1, txtPass2}.All(x => x.Text != "")),
 			 test2 = txtPass1.Text == txtPass2.Text;
 		if (test1 && test2)
@@ -84,37 +99,31 @@ public partial class config : System.Web.UI.Page
 			txtPass1.Style.Add("border-color", "red !important");
 			txtPass2.Style.Add("border-color", "red !important");
 			lblPassError.Text = "As senhas inseridas não coincidem.";
-			return;
+			return; //para a execução do methodo para não salvar se a senha estiver errada
 		}
-		//--bio
+
+		//
+		// bio
+		//
 		if (txtBio.Text != "")
-		{
 			newSettings["bio"] = txtBio.Text;
-		}
 		//}}}
 
 		//compare to see if there is diferences
 		//if does: updates db
 		if (!curSettings.ItemArray.SequenceEqual(newSettings.ItemArray))
 		{
-			string updateCommand = "UPDATE users SET" +
+			string updateCommand =
+				"UPDATE users SET" +
 				" img = '" + newSettings["img"] + "'," +
 				" name = '" + newSettings["name"] + "'," +
 				" pass = '" + newSettings["pass"] + "'," +
 				" bio = '" + newSettings["bio"] + "' " +
 				"WHERE email = '" + profileId + "';";
+
 			Sqlds1.UpdateFromQuery(updateCommand);
 		}
+		//depois que terminar a edução/clicar em salvar, volta para a Profile
 		Response.Redirect(FileName.Profile);
-	}
-
-	public void logout(object sender, EventArgs e)
-	{
-		this.Logout();
-	}
-	public void btnPesq_Click(object sender, EventArgs e)
-	{
-		if (txtSearchBox.Text != "")
-			Response.Redirect(FileName.PesqPage+"?q="+txtSearchBox.Text);
 	}
 }
