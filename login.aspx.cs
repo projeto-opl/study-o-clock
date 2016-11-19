@@ -10,7 +10,17 @@ public partial class login : System.Web.UI.Page
 {
 	protected void Page_Load(object sender, EventArgs e)
 	{
-		if (Session["myemail"] != null)
+		bool isValidated = (bool)Sqlds1.QueryToTable(
+				"SELECT"+
+				" validated"+
+				" FROM"+
+				" users"+
+				" WHERE email='"+(string)Session["myemail"]+"'"
+				).Rows[0][0];
+		//
+		// Se a Session estiver ON -> redirect to profile
+		//
+		if (Session["myemail"] != null && isValidated)
 			if (Request.QueryString["r"] == null)
 				redirect(FileName.Profile+"?user="+(string)Session["myemail"]);
 			else
