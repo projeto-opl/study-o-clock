@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="cph" Runat="Server">
 <div><!--'header' com img, nome, e etc do perfil {{{-->
 	<div id='main-profile-pic' class='profile_img_wrapper'>
